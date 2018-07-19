@@ -7,14 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class Fragment_Descubre extends Fragment{
+public class Fragment_Valorar extends Fragment {
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_fragment__descubre, container, false);
+        return inflater.inflate(R.layout.fragment_fragment__valorar, container, false);
     }
-
-
 }

@@ -60,19 +60,22 @@ public class MainActivity extends AppCompatActivity {
                             boolean success = jsonResponse.getBoolean("correcto");
 
                             if(success){
+
+                                String id_usuario = jsonResponse.getString("id_usuario");
                                 String nombre_usuario = jsonResponse.getString("nombre");
                                 String apellidos_usuario = jsonResponse.getString("apellidos");
                                 String email_usuario = jsonResponse.getString("email");
 
                                 //Con Intent lo que hacemos es especificar desde cual es la vista origen y cual la de destino.
-                                //Y mandamos nuestras variables para que s emuestren en la vista principal despues del Logarnos.
-                                Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                                //Y mandamos nuestras variables para que se muestren en la vista principal despues del Logarnos.
+
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 
 
-                                /*intent.putExtra("id_usuario",id_usuario);
+                                intent.putExtra("id_usuario",id_usuario);
                                 intent.putExtra("nombre",nombre_usuario);
                                 intent.putExtra("apellidos",apellidos_usuario);
-                                intent.putExtra("email",email_usuario);*/
+                                intent.putExtra("email",email_usuario);
 
                                 MainActivity.this.startActivity(intent);
                                 Log.d("Valor de success:", String.valueOf(success));

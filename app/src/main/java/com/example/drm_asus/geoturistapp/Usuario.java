@@ -28,8 +28,6 @@ public class Usuario extends AppCompatActivity {
         });
 
 
-
-
         //Asociamos nuestras variables con las de la vista
         tv_nick = findViewById(R.id.tv_nick);
         tv_nombre = findViewById(R.id.tv_nombre);

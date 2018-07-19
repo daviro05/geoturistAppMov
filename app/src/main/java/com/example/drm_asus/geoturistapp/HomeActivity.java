@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,10 +19,17 @@ import android.view.MenuItem;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+
+    String nick, nombre, apellidos, email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Inicio()).commit();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -33,6 +41,16 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Vamos a recibir las variables que nos llegan de MainActivity
+        Intent intent = getIntent();
+
+        nick = intent.getStringExtra("id_usuario");
+        nombre = intent.getStringExtra("nombre");
+        apellidos = intent.getStringExtra("apellidos");
+        email = intent.getStringExtra("email");
+
+        Log.d("Usuario: ", nick);
     }
 
     @Override
@@ -52,17 +70,35 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-
         if (id == R.id.nav_inicio) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Inicio()).commit();
+            // Creamos un bundle para poder pasarle los datos del usuario logeado
+            Fragment_Inicio fragment_inicio = new Fragment_Inicio();
+            Bundle bundl = new Bundle();
+            bundl.putString("nick", nick);
+
+            fragment_inicio.setArguments(bundl);
+            fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_inicio).commit();
         } else if (id == R.id.nav_monumentos) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Monumentos()).commit();
         } else if (id == R.id.nav_descubre) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Descubre()).commit();
+            Intent intentCoords = new Intent(HomeActivity.this, Coordenadas.class);
+            HomeActivity.this.startActivity(intentCoords);
+            //fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Descubre()).commit();
         } else if (id == R.id.nav_perfil) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Perfil()).commit();
-        } else if (id == R.id.nav_logout) {
+
+            // Creamos un bundle para poder pasarle los datos del usuario logeado
+            Fragment_Perfil fragment_perfil = new Fragment_Perfil();
+            Bundle bundl = new Bundle();
+
+            bundl.putString("nick", nick);
+            bundl.putString("nombre", nombre);
+            bundl.putString("apellidos", apellidos);
+            bundl.putString("email", email);
+
+            fragment_perfil.setArguments(bundl);
+            fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_perfil).commit();
+        }
+        else if (id == R.id.nav_logout) {
             Intent intentLogout = new Intent(HomeActivity.this, MainActivity.class);
             HomeActivity.this.startActivity(intentLogout);
         }

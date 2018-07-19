@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -23,6 +24,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
     TextView tv_volver_login;
     EditText et_nick,et_nombre,et_apellidos,et_password,et_email,et_sexo,et_fecha_nac;
     Button btn_registrar;
+    LinearLayout reg_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,10 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_registro);
 
         //Aquí buscamos los elementos de la interfaz para añadirselo a nuestras variables definidas.
+
+        reg_layout = findViewById(R.id.reg_layout);
+
+        reg_layout.getBackground().setAlpha(100);
 
         et_nick = findViewById(R.id.et_nick);
         et_password = findViewById(R.id.et_passwd);
