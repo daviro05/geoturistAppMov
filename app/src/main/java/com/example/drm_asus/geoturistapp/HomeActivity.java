@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inicio) {
-            // Creamos un bundle para poder pasarle los datos del usuario logeado
+            // Creamos un bundle para poder pasarle los datos del usuario logeado y poder pasarselos a todos los fragments
             Fragment_Inicio fragment_inicio = new Fragment_Inicio();
             Bundle bundl = new Bundle();
             bundl.putString("nick", nick);
@@ -79,14 +79,21 @@ public class HomeActivity extends AppCompatActivity
             fragment_inicio.setArguments(bundl);
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_inicio).commit();
         } else if (id == R.id.nav_monumentos) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Monumentos()).commit();
+
+            Fragment_Monumentos fragment_monumentos = new Fragment_Monumentos();
+            Bundle bundl = new Bundle();
+            bundl.putString("nick", nick);
+
+            fragment_monumentos.setArguments(bundl);
+
+            fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_monumentos).commit();
         } else if (id == R.id.nav_descubre) {
             Intent intentCoords = new Intent(HomeActivity.this, Coordenadas.class);
             HomeActivity.this.startActivity(intentCoords);
             //fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Descubre()).commit();
         } else if (id == R.id.nav_perfil) {
 
-            // Creamos un bundle para poder pasarle los datos del usuario logeado
+            // Creamos un bundle para poder pasarle los datos del usuario logeado y verlos en el fragment de Mi Perfil
             Fragment_Perfil fragment_perfil = new Fragment_Perfil();
             Bundle bundl = new Bundle();
 

@@ -22,9 +22,12 @@ public class Fragment_Monumentos extends Fragment {
 
         Bundle bundl = getArguments();
 
-        nick = bundl.getString("nick");
+        if(bundl != null) {
 
-        nick_usuario.setText(nick);
+            nick = bundl.getString("nick");
+
+            nick_usuario.setText(nick);
+        }
 
 
         // Inflate the layout for this fragment

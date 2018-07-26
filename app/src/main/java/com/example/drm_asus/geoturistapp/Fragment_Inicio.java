@@ -37,11 +37,11 @@ public class Fragment_Inicio extends Fragment {
             Fragment_Monumentos fragment_monumentos = new Fragment_Monumentos();
 
                 Bundle bundl = getArguments();
-                nick = bundl.getString("nick");
+                // nick = bundl.getString("nick");
 
-                fragment_monumentos.setArguments(bundl);
+                //fragment_monumentos.setArguments(bundl);
 
-                Log.d("Inicio: ", nick);
+                // Log.d("Inicio: ", nick);
 
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contenedor,fragment_monumentos)
