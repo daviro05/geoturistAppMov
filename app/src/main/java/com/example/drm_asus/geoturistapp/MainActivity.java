@@ -71,7 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 final String id_usuario = et_usuario.getText().toString();
                 final String password = et_password.getText().toString();
 
-                logarse(id_usuario,password);
+                if(id_usuario.isEmpty() || password.isEmpty()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Rellena los campos Usuario y Password")
+                            .setNegativeButton("Volver a Intentar",null)
+                            .create().show();
+                }
+                else {
+                    logarse(id_usuario, password);
+                }
 
             }
         });

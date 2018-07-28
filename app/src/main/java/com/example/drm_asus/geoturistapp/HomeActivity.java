@@ -1,11 +1,13 @@
 package com.example.drm_asus.geoturistapp;
 
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -61,7 +63,8 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
+            getFragmentManager().popBackStack();
         }
     }
 
@@ -109,13 +112,37 @@ public class HomeActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_logout) {
 
-                // SI ESSTÁ MARCADO EL CHECKBOX EN LOGIN GUARDAMOS EL USERNAME Y PASSWORD en SharedPreferences
-                SharedPreferences.Editor editor = getSharedPreferences(USER_PASS, MODE_PRIVATE).edit();
-                editor.putString("username", null);
-                editor.putString("password", null);
-                editor.apply();
-            Intent intentLogout = new Intent(HomeActivity.this, MainActivity.class);
-            HomeActivity.this.startActivity(intentLogout);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            alertDialogBuilder.setTitle("¿Desea salir de la aplicación?");
+            //alertDialogBuilder.setIcon(R.drawable.question);
+            alertDialogBuilder.setMessage("Saldrás de GeoturistApp");
+            alertDialogBuilder.setCancelable(false);
+
+            alertDialogBuilder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // SI ESTÁ MARCADO EL CHECKBOX EN LOGIN GUARDAMOS EL USERNAME Y PASSWORD en SharedPreferences
+                    SharedPreferences.Editor editor = getSharedPreferences(USER_PASS, MODE_PRIVATE).edit();
+                    editor.putString("username", null);
+                    editor.putString("password", null);
+                    editor.apply();
+                    Intent intentLogout = new Intent(HomeActivity.this, MainActivity.class);
+                    HomeActivity.this.startActivity(intentLogout);
+                }
+            });
+
+            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
