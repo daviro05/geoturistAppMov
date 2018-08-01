@@ -18,13 +18,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+
+
+// Clase que contiene el menu principa de la aplicación
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
-    String nick, nombre, apellidos, email;
+    String nick, nombre, apellidos, email, valoraciones,comentarios;
     public static final String USER_PASS = "user_pass_save";
 
     @Override
@@ -47,12 +51,15 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Vamos a recibir las variables que nos llegan de MainActivity
+
         Intent intent = getIntent();
 
         nick = intent.getStringExtra("id_usuario");
         nombre = intent.getStringExtra("nombre");
         apellidos = intent.getStringExtra("apellidos");
         email = intent.getStringExtra("email");
+
+        // HAY QUE RELLENAR NUM DE VALORACIONES Y COMENTARIOS
 
         Log.d("Usuario: ", nick);
     }
@@ -63,8 +70,8 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            //super.onBackPressed();
-            getFragmentManager().popBackStack();
+            Fragment_Inicio fragment_inicio = new Fragment_Inicio();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_inicio).commit();
         }
     }
 
@@ -78,20 +85,19 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_inicio) {
             // Creamos un bundle para poder pasarle los datos del usuario logeado y poder pasarselos a todos los fragments
             Fragment_Inicio fragment_inicio = new Fragment_Inicio();
-            Bundle bundl = new Bundle();
-            bundl.putString("nick", nick);
 
-            fragment_inicio.setArguments(bundl);
+            // SOLUCIONAR PROBLEMA DE NULL CUANDO NO SE MARCA EL BOTON DE RECORDAR
+            
+            /*Bundle bundl = new Bundle();
+            bundl.putString("nick", nick);
+            fragment_inicio.setArguments(bundl);*/
+
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_inicio).commit();
         } else if (id == R.id.nav_monumentos) {
 
             Fragment_Monumentos fragment_monumentos = new Fragment_Monumentos();
-            Bundle bundl = new Bundle();
-            bundl.putString("nick", nick);
-
-            fragment_monumentos.setArguments(bundl);
-
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_monumentos).commit();
+
         } else if (id == R.id.nav_descubre) {
             Intent intentCoords = new Intent(HomeActivity.this, Coordenadas.class);
             HomeActivity.this.startActivity(intentCoords);
@@ -107,10 +113,14 @@ public class HomeActivity extends AppCompatActivity
             bundl.putString("apellidos", apellidos);
             bundl.putString("email", email);
 
+            // AQUI HAY QUE PASARLE EL NUM DE LAS VALORACIONES Y LOS COMENTARIOS
+
             fragment_perfil.setArguments(bundl);
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_perfil).commit();
         }
         else if (id == R.id.nav_logout) {
+
+            // Elemento del menu lateral para cerar la sesión.
 
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -123,7 +133,7 @@ public class HomeActivity extends AppCompatActivity
 
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
-                    // SI ESTÁ MARCADO EL CHECKBOX EN LOGIN GUARDAMOS EL USERNAME Y PASSWORD en SharedPreferences
+                    // BORRAMOS EL USERNAME Y PASSWORD en SharedPreferences
                     SharedPreferences.Editor editor = getSharedPreferences(USER_PASS, MODE_PRIVATE).edit();
                     editor.putString("username", null);
                     editor.putString("password", null);

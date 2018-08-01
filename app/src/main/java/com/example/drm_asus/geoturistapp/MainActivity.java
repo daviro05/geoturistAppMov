@@ -19,10 +19,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+// Clase que contiene el login para entrar en la aplicación
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tv_ir_registro;
-    TextView tv_ir_login;
     Button btn_login;
     EditText et_usuario, et_password;
     CheckBox chk_recordar;
@@ -51,8 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.btn_login);
 
+        // En SharedPreferences guardamos el username y el password
+
         SharedPreferences prefs = getSharedPreferences(USER_PASS, MODE_PRIVATE);
         String restoredText = prefs.getString("username", null);
+
+        // Si al recuperar de la variable SharedPreferences obtenemos algo distinto de null quiere decir que hay un username guardado.
         if (restoredText != null) {
             String id_usuario_save = prefs.getString("username", "");
             String password_save = prefs.getString("password", "");
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(id_usuario.isEmpty() || password.isEmpty()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Rellena los campos Usuario y Password")
+                    builder.setMessage("Rellena los campos usuario y password")
                             .setNegativeButton("Volver a Intentar",null)
                             .create().show();
                 }
@@ -105,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("password", et_password.getText().toString());
                             editor.apply();
                         }
+
 
                         String id_usuario = jsonResponse.getString("id_usuario");
                         String nombre_usuario = jsonResponse.getString("nombre");

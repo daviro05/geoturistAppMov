@@ -2,6 +2,7 @@ package com.example.drm_asus.geoturistapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class Fragment_Inicio extends Fragment {
 
     Button btn_mis_monumentos, btn_descubre_monumentos, btn_mis_valoraciones;
     String nick;
+    TextView bienvenida;
+    public static final String USER_PASS = "user_pass_save";
 
 
     @Override
@@ -30,6 +35,12 @@ public class Fragment_Inicio extends Fragment {
         btn_mis_monumentos = v.findViewById(R.id.btn_mis_monumentos);
         btn_descubre_monumentos = v.findViewById(R.id.btn_descubre_monumentos);
         btn_mis_valoraciones = v.findViewById(R.id.btn_mis_valoraciones);
+        bienvenida = v.findViewById(R.id.bienvenida);
+
+        SharedPreferences prefs = this.getActivity().getSharedPreferences(USER_PASS, MODE_PRIVATE);
+        String username = prefs.getString("username", null);
+
+        bienvenida.setText("Hola "+username+"!");
 
         btn_mis_monumentos.setOnClickListener(new View.OnClickListener() {
             @Override
