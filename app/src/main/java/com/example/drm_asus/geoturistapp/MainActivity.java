@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         et_password = findViewById(R.id.et_password);
         et_usuario = findViewById(R.id.et_usuario);
-        chk_recordar = findViewById(R.id.chk_recordar);
+        //chk_recordar = findViewById(R.id.chk_recordar);
 
 
         //Aquí realizamos la función de llamar de una activity a otra. De login a registro
@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
 
                     if(success){
 
-                        if(chk_recordar.isChecked()) {
+                        if(true) {
                             // SI ESSTÁ MARCADO EL CHECKBOX EN LOGIN GUARDAMOS EL USERNAME Y PASSWORD en SharedPreferences
                             SharedPreferences.Editor editor = getSharedPreferences(USER_PASS, MODE_PRIVATE).edit();
-                            editor.putString("username", et_usuario.getText().toString());
+                            editor.putString("username", jsonResponse.getString("id_usuario"));
                             editor.putString("password", et_password.getText().toString());
                             editor.apply();
                         }

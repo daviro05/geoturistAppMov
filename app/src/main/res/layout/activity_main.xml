@@ -40,13 +40,13 @@
         android:layout_marginTop="20dp"
         android:text="Login" />
 
-    <CheckBox
+    <!--<CheckBox
         android:id="@+id/chk_recordar"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="2dp"
-        android:text="Recordar"/>
+        android:text="Recordar"/>-->
 
     <TextView
         android:id="@+id/tv_ir_registro"

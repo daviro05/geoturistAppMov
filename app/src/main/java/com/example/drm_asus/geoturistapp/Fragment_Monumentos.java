@@ -31,6 +31,9 @@ public class Fragment_Monumentos extends Fragment {
     String url_monumentos;
     public static final String USER_PASS = "user_pass_save";
 
+    private static String entorno1 ="http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario=";
+    private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/monumentos_usuario.php?id_usuario=";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class Fragment_Monumentos extends Fragment {
 
         nick_usuario.setText(username);
 
-        url_monumentos = "http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario="+username;
+        url_monumentos = entorno2+username;
 
         getJSON (url_monumentos);
 
@@ -75,7 +78,7 @@ public class Fragment_Monumentos extends Fragment {
         //attaching adapter to listview
         if(lugares != null) {
             lista_monumentos.setAdapter(arrayAdapter);
-            tv_visitados.setText("2");
+            tv_visitados.setText(String.valueOf(lugares.length));
         }
     }
 
