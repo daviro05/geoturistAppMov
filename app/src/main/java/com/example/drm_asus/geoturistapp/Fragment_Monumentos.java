@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class Fragment_Monumentos extends Fragment {
     String url_monumentos;
     public static final String USER_PASS = "user_pass_save";
 
+
     private static String entorno1 ="http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario=";
     private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/monumentos_usuario.php?id_usuario=";
 
@@ -50,7 +52,7 @@ public class Fragment_Monumentos extends Fragment {
 
         nick_usuario.setText(username);
 
-        url_monumentos = entorno2+username;
+        url_monumentos = entorno1+username;
 
         getJSON (url_monumentos);
 
@@ -65,7 +67,8 @@ public class Fragment_Monumentos extends Fragment {
         JSONArray jsonArray = new JSONArray(json);
 
         //creating a string array for listview
-        String[] lugares = new String[jsonArray.length()];
+        final String[] lugares = new String[jsonArray.length()];
+        final String[] id_lugares = new String[jsonArray.length()];
 
         //looping through all the elements in json array
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -75,6 +78,8 @@ public class Fragment_Monumentos extends Fragment {
 
             //getting the name from the json object and putting it inside string array
             lugares[i] = obj.getString("nombre_lugar");
+            id_lugares[i] = obj.getString("id_lugar");
+
         }
 
         //the array adapter to load data into list
@@ -89,6 +94,24 @@ public class Fragment_Monumentos extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("click",String.valueOf(position));
+
+                    // Create new fragment and transaction
+                    Fragment_VerMonumento fragment_monumento = new Fragment_VerMonumento();
+
+                    Bundle bundl = new Bundle();
+
+                    bundl.putString("nombre_lugar", lugares[position]);
+                    bundl.putString("id_lugar", id_lugares[position]);
+
+                    fragment_monumento.setArguments(bundl);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    transaction.replace(R.id.contenedor, fragment_monumento);
+                    transaction.addToBackStack(null);
+
+                    transaction.commit();
+
                 }
             });
         }

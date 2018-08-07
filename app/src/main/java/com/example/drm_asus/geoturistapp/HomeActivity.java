@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity
             Fragment_Inicio fragment_inicio = new Fragment_Inicio();
 
             // SOLUCIONAR PROBLEMA DE NULL CUANDO NO SE MARCA EL BOTON DE RECORDAR
-            
+
             /*Bundle bundl = new Bundle();
             bundl.putString("nick", nick);
             fragment_inicio.setArguments(bundl);*/
