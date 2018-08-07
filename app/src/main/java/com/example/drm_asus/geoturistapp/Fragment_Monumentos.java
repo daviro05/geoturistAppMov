@@ -4,9 +4,11 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +57,9 @@ public class Fragment_Monumentos extends Fragment {
         return v;
     }
 
+
+
+
     private void loadIntoListView(String json) throws JSONException {
         //creating a json array from the json string
         JSONArray jsonArray = new JSONArray(json);
@@ -79,6 +84,13 @@ public class Fragment_Monumentos extends Fragment {
         if(lugares != null) {
             lista_monumentos.setAdapter(arrayAdapter);
             tv_visitados.setText(String.valueOf(lugares.length));
+
+            lista_monumentos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d("click",String.valueOf(position));
+                }
+            });
         }
     }
 
