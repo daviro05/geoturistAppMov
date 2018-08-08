@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
                         String nombre_usuario = jsonResponse.getString("nombre");
                         String apellidos_usuario = jsonResponse.getString("apellidos");
                         String email_usuario = jsonResponse.getString("email");
+                        String comentarios_usuario = jsonResponse.getString("comentarios");
+                        String valoraciones_usuario = jsonResponse.getString("valoraciones");
 
                         //Con Intent lo que hacemos es especificar desde cual es la vista origen y cual la de destino.
                         //Y mandamos nuestras variables para que se muestren en la vista principal despues del Logarnos.
@@ -127,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("nombre",nombre_usuario);
                         intent.putExtra("apellidos",apellidos_usuario);
                         intent.putExtra("email",email_usuario);
+                        intent.putExtra("comentarios",comentarios_usuario);
+                        intent.putExtra("valoraciones",valoraciones_usuario);
 
                         MainActivity.this.startActivity(intent);
                         Log.d("Valor de success:", String.valueOf(success));

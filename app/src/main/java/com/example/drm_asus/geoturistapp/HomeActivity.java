@@ -58,8 +58,9 @@ public class HomeActivity extends AppCompatActivity
         nombre = intent.getStringExtra("nombre");
         apellidos = intent.getStringExtra("apellidos");
         email = intent.getStringExtra("email");
+        comentarios = intent.getStringExtra("comentarios");
+        valoraciones = intent.getStringExtra("valoraciones");
 
-        // HAY QUE RELLENAR NUM DE VALORACIONES Y COMENTARIOS
 
         Log.d("Usuario: ", nick);
     }
@@ -99,9 +100,12 @@ public class HomeActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_monumentos).commit();
 
         } else if (id == R.id.nav_descubre) {
-            Intent intentCoords = new Intent(HomeActivity.this, Coordenadas.class);
-            HomeActivity.this.startActivity(intentCoords);
-            //fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Descubre()).commit();
+
+            // Intent intentCoords = new Intent(HomeActivity.this, Coordenadas.class);
+            // HomeActivity.this.startActivity(intentCoords);
+            Fragment_Descubre fragment_descubre = new Fragment_Descubre();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_descubre).commit();
+
         } else if (id == R.id.nav_perfil) {
 
             // Creamos un bundle para poder pasarle los datos del usuario logeado y verlos en el fragment de Mi Perfil
@@ -112,8 +116,9 @@ public class HomeActivity extends AppCompatActivity
             bundl.putString("nombre", nombre);
             bundl.putString("apellidos", apellidos);
             bundl.putString("email", email);
-
-            // AQUI HAY QUE PASARLE EL NUM DE LAS VALORACIONES Y LOS COMENTARIOS
+            bundl.putString("comentarios",comentarios);
+            bundl.putString("valoraciones",valoraciones);
+            
 
             fragment_perfil.setArguments(bundl);
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_perfil).commit();

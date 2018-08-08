@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,8 @@ public class Fragment_Monumentos extends Fragment {
     TextView nick_usuario, tv_visitados;
     ListView lista_monumentos;
     String url_monumentos;
+    Button btn_descubre_monumentos;
+
     public static final String USER_PASS = "user_pass_save";
 
 
@@ -46,15 +49,33 @@ public class Fragment_Monumentos extends Fragment {
         nick_usuario = v.findViewById(R.id.tv_nick);
         lista_monumentos = v.findViewById(R.id.lv_monumentos);
         tv_visitados = v.findViewById(R.id.tv_visitados);
+        btn_descubre_monumentos = v.findViewById(R.id.btn_descubre_monumentos);
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences(USER_PASS, MODE_PRIVATE);
         String username = prefs.getString("username", null);
 
         nick_usuario.setText(username);
-
-        url_monumentos = entorno1+username;
+        url_monumentos = entorno2+username;
 
         getJSON (url_monumentos);
+
+        btn_descubre_monumentos.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // Create new fragment and transaction
+                Fragment_Descubre fragment_descubre = new Fragment_Descubre();
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.contenedor, fragment_descubre);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+            }
+        });
 
         return v;
     }
