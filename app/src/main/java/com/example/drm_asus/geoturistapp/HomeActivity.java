@@ -118,7 +118,7 @@ public class HomeActivity extends AppCompatActivity
             bundl.putString("email", email);
             bundl.putString("comentarios",comentarios);
             bundl.putString("valoraciones",valoraciones);
-            
+
 
             fragment_perfil.setArguments(bundl);
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_perfil).commit();

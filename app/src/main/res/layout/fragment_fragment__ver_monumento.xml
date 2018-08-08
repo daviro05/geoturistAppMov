@@ -51,12 +51,15 @@
         android:layout_gravity="center">
 
 
-        <EditText
-            android:id="@+id/et_descripcion"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_information"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="5"
-            android:inputType="textMultiLine" />
+            android:text=""
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,12 +95,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Valoración:"
+                android:text="Días apertura:"
                 android:textSize="15dp"
                 android:layout_marginRight="20dp"
                 />
             <TextView
-                android:id="@+id/tv_valoracion"
+                android:id="@+id/tv_dias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -116,7 +119,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Visitas:"
+                android:text="Visitas totales:"
                 android:textSize="15dp"
                 android:layout_marginRight="20dp"
                 />
@@ -177,17 +180,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
         android:background="@drawable/border"
         android:backgroundTint="@color/white"
         android:layout_gravity="center">
 
         <ListView
+            android:id="@+id/lv_comentarios"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content">
+        </ListView>
+
+        <ListView
             android:id="@+id/lv_valoraciones"
-            android:layout_width="match_parent"
-            android:layout_height="120dp">
+            android:layout_width="135dp"
+            android:layout_height="wrap_content">
         </ListView>
 
     </LinearLayout>
