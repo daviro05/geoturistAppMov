@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +30,10 @@ public class Fragment_VerMonumento extends Fragment {
     TextView tv_monumento, tv_information, tv_horario, tv_dias, tv_visitas;
     ListView lv_comentarios, lv_valoraciones;
     Button btn_add_monumento, btn_multimedia, btn_valorar;
-    String id_lugar, nombre_lugar, url_monumento;
+    String id_lugar, nombre_lugar, id_usuario, url_monumento;
 
-    private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?id_lugar=";
-    private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/ver_monumento_usuario.php?id_lugar=";
+    private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
+    private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/ver_monumento_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +45,11 @@ public class Fragment_VerMonumento extends Fragment {
         Bundle bundl = getArguments();
         id_lugar = bundl.getString("id_lugar");
         nombre_lugar = bundl.getString("nombre_lugar");
+        id_usuario = bundl.getString("id_usuario");
 
-        url_monumento = entorno2+id_lugar;
+        Log.d("Valor de ID_USUARIO",id_usuario);
+
+        url_monumento = entorno2+"id_lugar="+id_lugar+"&id_usuario="+id_usuario;
 
         // TextView de la vista
         tv_monumento = v.findViewById(R.id.tv_monumento);
@@ -53,6 +57,8 @@ public class Fragment_VerMonumento extends Fragment {
         tv_horario = v.findViewById(R.id.tv_horario);
         tv_dias = v.findViewById(R.id.tv_dias);
         tv_visitas = v.findViewById(R.id.tv_visitas);
+
+        tv_information.setMovementMethod(new ScrollingMovementMethod());
 
         // ListView de la vista
         lv_comentarios = v.findViewById(R.id.lv_comentarios);
@@ -63,7 +69,7 @@ public class Fragment_VerMonumento extends Fragment {
         btn_multimedia = v.findViewById(R.id.btn_multimedia);
         btn_valorar = v.findViewById(R.id.btn_valorar);
 
-        //getJSON(url_monumento);
+        getJSON(url_monumento);
 
         Log.d("ID_LUGAR", id_lugar);
         Log.d("NOMBRE_LUGAR", nombre_lugar);
@@ -94,7 +100,7 @@ public class Fragment_VerMonumento extends Fragment {
                 super.onPostExecute(s);
                 //Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 try {
-                    loadIntoListView(s);
+                    loadLugar(s);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -141,28 +147,26 @@ public class Fragment_VerMonumento extends Fragment {
         getJSON.execute();
     }
 
-    private void loadIntoListView(String json) throws JSONException {
+    private void loadLugar(String json) throws JSONException {
         //creating a json array from the json string
         JSONArray jsonArray = new JSONArray(json);
 
-        //creating a string array for listview
-        final String[] lugares = new String[jsonArray.length()];
-        final String[] id_lugares = new String[jsonArray.length()];
+        JSONObject obj = jsonArray.getJSONObject(0);
 
-        //looping through all the elements in json array
-        for (int i = 0; i < jsonArray.length(); i++) {
+        tv_monumento.setText(obj.getString("nombre"));
+        tv_information.setText(obj.getString("descripcion"));
+        tv_horario.setText(obj.getString("horario"));
+        tv_dias.setText(obj.getString("dias_abre"));
+        tv_visitas.setText(obj.getString("visitas"));
 
-            //getting json object from the json array
-            JSONObject obj = jsonArray.getJSONObject(i);
+        Log.d("Valor de AGREGADO",String.valueOf(obj.getBoolean("agregado")));
 
-            //getting the name from the json object and putting it inside string array
-            lugares[i] = obj.getString("nombre_lugar");
-            id_lugares[i] = obj.getString("id_lugar");
-
+        if(obj.getBoolean("agregado")){
+            //btn_add_monumento.setVisibility(View.GONE);
+            btn_add_monumento.setEnabled(false);
         }
 
-        //the array adapter to load data into list
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, lugares);
 
+        // MIRAR PORQUE SI HAY UN TEXTO MUY LARGO EN LA DESCRIPCIÓN, NO SE MUESTRA NADA
     }
 }

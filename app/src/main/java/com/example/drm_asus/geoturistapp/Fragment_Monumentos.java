@@ -32,7 +32,7 @@ public class Fragment_Monumentos extends Fragment {
 
     TextView nick_usuario, tv_visitados;
     ListView lista_monumentos;
-    String url_monumentos;
+    String url_monumentos, username;
     Button btn_descubre_monumentos;
 
     public static final String USER_PASS = "user_pass_save";
@@ -52,7 +52,7 @@ public class Fragment_Monumentos extends Fragment {
         btn_descubre_monumentos = v.findViewById(R.id.btn_descubre_monumentos);
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences(USER_PASS, MODE_PRIVATE);
-        String username = prefs.getString("username", null);
+        username = prefs.getString("username", null);
 
         nick_usuario.setText(username);
         url_monumentos = entorno2+username;
@@ -123,13 +123,14 @@ public class Fragment_Monumentos extends Fragment {
 
                     bundl.putString("nombre_lugar", lugares[position]);
                     bundl.putString("id_lugar", id_lugares[position]);
+                    bundl.putString("id_usuario", username);
 
                     fragment_monumento.setArguments(bundl);
 
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                     transaction.replace(R.id.contenedor, fragment_monumento);
-                    transaction.addToBackStack(null);
+                    //transaction.addToBackStack(null);
 
                     transaction.commit();
 
