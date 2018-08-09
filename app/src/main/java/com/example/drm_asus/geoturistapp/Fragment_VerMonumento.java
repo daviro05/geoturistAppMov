@@ -1,5 +1,6 @@
 package com.example.drm_asus.geoturistapp;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -73,6 +74,33 @@ public class Fragment_VerMonumento extends Fragment {
 
         Log.d("ID_LUGAR", id_lugar);
         Log.d("NOMBRE_LUGAR", nombre_lugar);
+
+
+        // Llamada a la vista de multimedia con la informacion del monumento
+
+        btn_multimedia.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // Create new fragment and transaction
+                Fragment_VerMultimedia fragment_multimedia = new Fragment_VerMultimedia();
+                Bundle bundl = new Bundle();
+
+                bundl.putString("id_lugar", id_lugar);
+                bundl.putString("nombre_lugar", nombre_lugar);
+
+                fragment_multimedia.setArguments(bundl);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.contenedor, fragment_multimedia);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+            }
+        });
 
 
         return v;
@@ -163,6 +191,9 @@ public class Fragment_VerMonumento extends Fragment {
 
         if(obj.getBoolean("agregado")){
             //btn_add_monumento.setVisibility(View.GONE);
+            btn_add_monumento.setText("Añadido");
+            btn_add_monumento.setBackgroundColor(Color.GRAY);
+            btn_add_monumento.setTextColor(Color.BLACK);
             btn_add_monumento.setEnabled(false);
         }
 

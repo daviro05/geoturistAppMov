@@ -50,7 +50,7 @@
         android:layout_gravity="center">
 
         <ListView
-            android:id="@+id/lv_valoraciones"
+            android:id="@+id/lv_imagenes"
             android:layout_width="match_parent"
             android:layout_height="60dp">
         </ListView>
@@ -102,7 +102,7 @@
         android:layout_gravity="center">
 
         <ListView
-            android:id="@+id/lv_docuemntos"
+            android:id="@+id/lv_documentos"
             android:layout_width="match_parent"
             android:layout_height="60dp">
         </ListView>
