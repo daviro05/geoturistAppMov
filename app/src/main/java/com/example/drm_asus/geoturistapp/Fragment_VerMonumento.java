@@ -31,7 +31,7 @@ public class Fragment_VerMonumento extends Fragment {
     TextView tv_monumento, tv_information, tv_horario, tv_dias, tv_visitas;
     ListView lv_comentarios, lv_valoraciones;
     Button btn_add_monumento, btn_multimedia, btn_valorar;
-    String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total;
+    String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total, num_val;
     Boolean agregado;
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
@@ -118,9 +118,11 @@ public class Fragment_VerMonumento extends Fragment {
                 bundl.putString("nombre_lugar", nombre_lugar);
                 bundl.putString("id_lugar", id_lugar);
                 bundl.putString("id_usuario", id_usuario);
-                bundl.putString("val_total",val_total);
 
-                // Obtener la valoración TOTAL
+                bundl.putString("val_total",val_total);
+                bundl.putString("num_val",num_val);
+
+                bundl.putBoolean("agregado",agregado);
 
                 fragment_valorar.setArguments(bundl);
 
@@ -224,6 +226,9 @@ public class Fragment_VerMonumento extends Fragment {
 
         agregado = obj.getBoolean("agregado");
         val_total = obj.getString("val_total");
+        num_val = obj.getString("num_val");
+
+
 
         if(obj.getBoolean("agregado")){
             //btn_add_monumento.setVisibility(View.GONE);
