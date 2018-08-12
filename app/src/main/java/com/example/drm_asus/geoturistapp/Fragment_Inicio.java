@@ -20,7 +20,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment_Inicio extends Fragment {
 
-    Button btn_mis_monumentos, btn_descubre_monumentos, btn_mis_valoraciones;
+    Button btn_mis_monumentos, btn_descubre_monumentos, btn_mis_comentarios;
     String nick;
     TextView bienvenida;
     public static final String USER_PASS = "user_pass_save";
@@ -34,7 +34,7 @@ public class Fragment_Inicio extends Fragment {
 
         btn_mis_monumentos = v.findViewById(R.id.btn_mis_monumentos);
         btn_descubre_monumentos = v.findViewById(R.id.btn_descubre_monumentos);
-        btn_mis_valoraciones = v.findViewById(R.id.btn_mis_valoraciones);
+        btn_mis_comentarios = v.findViewById(R.id.btn_mis_comentarios);
         bienvenida = v.findViewById(R.id.bienvenida);
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences(USER_PASS, MODE_PRIVATE);
@@ -46,13 +46,6 @@ public class Fragment_Inicio extends Fragment {
             @Override
             public void onClick(View view) {
             Fragment_Monumentos fragment_monumentos = new Fragment_Monumentos();
-
-                Bundle bundl = getArguments();
-                // nick = bundl.getString("nick");
-
-                //fragment_monumentos.setArguments(bundl);
-
-                // Log.d("Inicio: ", nick);
 
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contenedor,fragment_monumentos)
@@ -66,10 +59,7 @@ public class Fragment_Inicio extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment_Descubre fragment_descubre = new Fragment_Descubre();
-                Bundle bundl = new Bundle();
-                bundl.putString("usuario", "David");
 
-                fragment_descubre.setArguments(bundl);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contenedor,fragment_descubre)
                         .addToBackStack(null)
@@ -80,16 +70,13 @@ public class Fragment_Inicio extends Fragment {
 
 
 
-        btn_mis_valoraciones.setOnClickListener(new View.OnClickListener() {
+        btn_mis_comentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment_Valorar fragment_valorar = new Fragment_Valorar();
-                Bundle bundl = new Bundle();
-                bundl.putString("usuario", "David");
+                Fragment_Comentarios fragment_comentarios = new Fragment_Comentarios();
 
-                fragment_valorar.setArguments(bundl);
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contenedor,fragment_valorar)
+                        .replace(R.id.contenedor,fragment_comentarios)
                         .addToBackStack(null)
                         .commit();
 

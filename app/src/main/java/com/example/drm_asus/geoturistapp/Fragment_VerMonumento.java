@@ -28,14 +28,16 @@ import java.net.URL;
 
 public class Fragment_VerMonumento extends Fragment {
 
-    TextView tv_monumento, tv_information, tv_horario, tv_dias, tv_visitas;
-    ListView lv_comentarios, lv_valoraciones;
+    TextView tv_monumento, tv_information, tv_horario, tv_dias, tv_visitas, tv_valoracion_total;
+    ListView lv_comentarios;
     Button btn_add_monumento, btn_multimedia, btn_valorar;
-    String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total, num_val;
+    String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total, num_val, url_comentarios;
     Boolean agregado;
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
     private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/ver_monumento_usuario.php?";
+
+    private static String entorno1_com ="http://192.168.1.44/geoturistapp/lista_com_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,25 +55,28 @@ public class Fragment_VerMonumento extends Fragment {
 
         url_monumento = entorno1 + "id_lugar="+id_lugar+"&id_usuario="+id_usuario;
 
+        url_comentarios  =   entorno1_com + "id_lugar=" + id_lugar+"&tipo_dato=comentarios";
+
         // TextView de la vista
         tv_monumento = v.findViewById(R.id.tv_monumento);
         tv_information = v.findViewById(R.id.tv_information);
         tv_horario = v.findViewById(R.id.tv_horario);
         tv_dias = v.findViewById(R.id.tv_dias);
         tv_visitas = v.findViewById(R.id.tv_visitas);
+        tv_valoracion_total = v.findViewById(R.id.tv_valoracion_total);
 
         tv_information.setMovementMethod(new ScrollingMovementMethod());
 
         // ListView de la vista
         lv_comentarios = v.findViewById(R.id.lv_comentarios);
-        lv_valoraciones = v.findViewById(R.id.lv_valoraciones);
 
         // Buttons de la vista
         btn_add_monumento = v.findViewById(R.id.btn_add_monumento);
         btn_multimedia = v.findViewById(R.id.btn_multimedia);
         btn_valorar = v.findViewById(R.id.btn_valorar);
 
-        getJSON(url_monumento);
+        getJSON(url_monumento, "monumento");
+        getJSON(url_comentarios, "comentarios");
 
         Log.d("ID_LUGAR", id_lugar);
         Log.d("NOMBRE_LUGAR", nombre_lugar);
@@ -143,7 +148,7 @@ public class Fragment_VerMonumento extends Fragment {
 
 
     //this method is actually fetching the json string
-    private void getJSON(final String urlWebService) {
+    private void getJSON(final String urlWebService, final String tipo) {
 
         class GetJSON extends AsyncTask<Void, Void, String> {
 
@@ -163,7 +168,7 @@ public class Fragment_VerMonumento extends Fragment {
                 super.onPostExecute(s);
                 //Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 try {
-                    loadLugar(s);
+                    loadLugar(s, tipo);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -210,32 +215,58 @@ public class Fragment_VerMonumento extends Fragment {
         getJSON.execute();
     }
 
-    private void loadLugar(String json) throws JSONException {
+    private void loadLugar(String json, String tipo) throws JSONException {
         //creating a json array from the json string
         JSONArray jsonArray = new JSONArray(json);
 
-        JSONObject obj = jsonArray.getJSONObject(0);
+        if(tipo == "monumento") {
+            JSONObject obj = jsonArray.getJSONObject(0);
 
-        tv_monumento.setText(obj.getString("nombre"));
-        tv_information.setText(obj.getString("descripcion"));
-        tv_horario.setText(obj.getString("horario"));
-        tv_dias.setText(obj.getString("dias_abre"));
-        tv_visitas.setText(obj.getString("visitas"));
+            tv_monumento.setText(obj.getString("nombre"));
+            tv_information.setText(obj.getString("descripcion"));
+            tv_horario.setText(obj.getString("horario"));
+            tv_dias.setText(obj.getString("dias_abre"));
+            tv_visitas.setText(obj.getString("visitas"));
 
-        Log.d("Valor de AGREGADO",String.valueOf(obj.getBoolean("agregado")));
+            Log.d("Valor de AGREGADO", String.valueOf(obj.getBoolean("agregado")));
 
-        agregado = obj.getBoolean("agregado");
-        val_total = obj.getString("val_total");
-        num_val = obj.getString("num_val");
+            agregado = obj.getBoolean("agregado");
+            val_total = obj.getString("val_total");
+            num_val = obj.getString("num_val");
+
+            tv_valoracion_total.setText(val_total);
 
 
+            if (obj.getBoolean("agregado")) {
+                //btn_add_monumento.setVisibility(View.GONE);
+                btn_add_monumento.setText("Añadido");
+                btn_add_monumento.setBackgroundColor(Color.GRAY);
+                btn_add_monumento.setTextColor(Color.BLACK);
+                btn_add_monumento.setEnabled(false);
+            }
+        }
+        else if(tipo == "comentarios"){
 
-        if(obj.getBoolean("agregado")){
-            //btn_add_monumento.setVisibility(View.GONE);
-            btn_add_monumento.setText("Añadido");
-            btn_add_monumento.setBackgroundColor(Color.GRAY);
-            btn_add_monumento.setTextColor(Color.BLACK);
-            btn_add_monumento.setEnabled(false);
+            final String[] comentarios = new String[jsonArray.length()];
+
+            //looping through all the elements in json array
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                //getting json object from the json array
+                JSONObject obj = jsonArray.getJSONObject(i);
+
+                //getting the name from the json object and putting it inside string array
+                comentarios[i] = obj.getString("comentarios");
+            }
+
+            //the array adapter to load data into list
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, comentarios);
+
+            //attaching adapter to listview
+            if(comentarios != null) {
+                lv_comentarios.setAdapter(arrayAdapter);
+            }
+
         }
 
 

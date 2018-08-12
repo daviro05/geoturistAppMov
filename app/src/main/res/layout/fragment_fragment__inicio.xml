@@ -123,19 +123,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
                 android:gravity="center"
-                android:text="Tus Valoraciones"
+                android:text="Tus Comentarios"
                 android:textSize="15dp" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_mis_valoraciones"
+            android:id="@+id/btn_mis_comentarios"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Mis Valoraciones"
+            android:text="Mis Comentarios"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

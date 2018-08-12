@@ -98,6 +98,18 @@ public class Fragment_Valorar extends Fragment {
             }
         });
 
+        // Funcionalidad del boton de valorar
+        btn_valorar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Al hacer click en el botón de Valorar comprobamos que los campos valorar y comentario (no es necesario) están completos.
+                // Necesitamos el id_usuario, id_lugar, valoracion y comentario
+
+
+            }
+        });
+
         return v;
     }
 }
