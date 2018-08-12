@@ -1,6 +1,7 @@
 package com.example.drm_asus.geoturistapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +32,8 @@ public class Fragment_VerMultimedia extends Fragment {
     TextView tv_monumento;
     ListView lv_imagenes, lv_audios, lv_documentos;
     Button btn_add_monumento, btn_volver_monumento;
-    String id_lugar, nombre_lugar, tipo_multimedia, url_multimedia_imagenes, url_multimedia_audios, url_multimedia_documentos;
+    String id_lugar, nombre_lugar, id_usuario, tipo_multimedia, url_multimedia_imagenes, url_multimedia_audios, url_multimedia_documentos;
+    Boolean agregado;
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/multimedia_usuario.php?";
     private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/multimedia_usuario.php?";
@@ -49,10 +51,13 @@ public class Fragment_VerMultimedia extends Fragment {
         Bundle bundl = getArguments();
         id_lugar = bundl.getString("id_lugar");
         nombre_lugar = bundl.getString("nombre_lugar");
+        id_usuario = bundl.getString("id_usuario");
+        agregado = bundl.getBoolean("agregado");
 
-        url_multimedia_imagenes = entorno2+"id_lugar="+id_lugar+"&tipo_multimedia=imagenes";
-        url_multimedia_audios = entorno2+"id_lugar="+id_lugar+"&tipo_multimedia=audios";
-        url_multimedia_documentos = entorno2+"id_lugar="+id_lugar+"&tipo_multimedia=documentos";
+        url_multimedia_imagenes =   entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=imagenes";
+        url_multimedia_audios =     entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=audios";
+        url_multimedia_documentos = entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=documentos";
+
 
 
         // TextView de la vista
@@ -68,6 +73,44 @@ public class Fragment_VerMultimedia extends Fragment {
         // Button de la vista
         btn_add_monumento = v.findViewById(R.id.btn_add_monumento);
         btn_volver_monumento = v.findViewById(R.id.btn_volver_monumento);
+
+
+        btn_volver_monumento.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // Create new fragment and transaction
+                Fragment_VerMonumento fragment_ver_monumento = new Fragment_VerMonumento();
+
+                Bundle bundl = new Bundle();
+
+                bundl.putString("nombre_lugar", nombre_lugar);
+                bundl.putString("id_lugar", id_lugar);
+                bundl.putString("id_usuario", id_usuario);
+
+                fragment_ver_monumento.setArguments(bundl);
+
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.contenedor, fragment_ver_monumento);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+            }
+        });
+
+        Log.d("Valor de agregado:",String.valueOf(agregado));
+
+        if(agregado){
+            //btn_add_monumento.setVisibility(View.GONE);
+            btn_add_monumento.setText("Añadido");
+            btn_add_monumento.setBackgroundColor(Color.GRAY);
+            btn_add_monumento.setTextColor(Color.BLACK);
+            btn_add_monumento.setEnabled(false);
+        }
 
         getJSON(url_multimedia_imagenes, "imagenes");
         getJSON(url_multimedia_audios, "audios");
@@ -180,11 +223,11 @@ public class Fragment_VerMultimedia extends Fragment {
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                        String url_im = url_entorno2+"multimedia/img_lugares/"+imagenes[position];
+                        String url_im = url_entorno1 + "multimedia/img_lugares/"+imagenes[position];
                         intent.setData(Uri.parse(url_im));
                         startActivity(intent);
 
-                        // LLAMADA A LA RUTA DE LAS IMAGENES: entorno2+multimedia/img_lugares/nombre_img.jpg
+                        // LLAMADA A LA RUTA DE LAS IMAGENES: entorno+multimedia/img_lugares/nombre_img.jpg
                     }
                 });
             }
@@ -215,7 +258,14 @@ public class Fragment_VerMultimedia extends Fragment {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Log.d("click",String.valueOf(position));
 
-                        // LLAMADA A LA RUTA DE LAS IMAGENES: entorno2+multimedia/audio_lugares/nombre_audio.mp3
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                        String url_im = url_entorno1 + "multimedia/audio_lugares/"+audios[position];
+                        intent.setData(Uri.parse(url_im));
+                        startActivity(intent);
+
+                        // LLAMADA A LA RUTA DE LOS AUDIOS: entorno+multimedia/audio_lugares/nombre_audio.mp3
                     }
                 });
             }
@@ -246,12 +296,18 @@ public class Fragment_VerMultimedia extends Fragment {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Log.d("click",String.valueOf(position));
 
-                        // LLAMADA A LA RUTA DE LAS IMAGENES: entorno2+multimedia/doc_lugares/nombre_doc.pdf
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                        String url_im = url_entorno1 + "multimedia/doc_lugares/"+documentos[position];
+                        intent.setData(Uri.parse(url_im));
+                        startActivity(intent);
+
+                        // LLAMADA A LA RUTA DE LOS DOC: entorno+multimedia/doc_lugares/nombre_doc.pdf
                     }
                 });
             }
         }
-
 
     }
 }

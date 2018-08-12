@@ -16,8 +16,9 @@ public class RegistroRequest extends StringRequest {
     private static String entorno1 = "http://192.168.1.44/geoturistapp/registro_usuario.php";
     private static String entorno2 = "http://172.10.2.138/geoturistAppWeb/registro_usuario.php";
 
-    private static final String REGISTER_REQUEST_URL=entorno1;
+    private static final String REGISTER_REQUEST_URL = entorno1;
     private Map<String,String> params;
+
     public RegistroRequest(String id_usuario, String nombre, String apellidos, String password, String email, Response.Listener<String> listener){
         super(Method.POST, REGISTER_REQUEST_URL,listener,null);
         params= new HashMap<>();

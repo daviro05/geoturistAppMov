@@ -31,7 +31,8 @@ public class Fragment_VerMonumento extends Fragment {
     TextView tv_monumento, tv_information, tv_horario, tv_dias, tv_visitas;
     ListView lv_comentarios, lv_valoraciones;
     Button btn_add_monumento, btn_multimedia, btn_valorar;
-    String id_lugar, nombre_lugar, id_usuario, url_monumento;
+    String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total;
+    Boolean agregado;
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
     private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/ver_monumento_usuario.php?";
@@ -50,7 +51,7 @@ public class Fragment_VerMonumento extends Fragment {
 
         Log.d("Valor de ID_USUARIO",id_usuario);
 
-        url_monumento = entorno2+"id_lugar="+id_lugar+"&id_usuario="+id_usuario;
+        url_monumento = entorno1 + "id_lugar="+id_lugar+"&id_usuario="+id_usuario;
 
         // TextView de la vista
         tv_monumento = v.findViewById(R.id.tv_monumento);
@@ -89,12 +90,44 @@ public class Fragment_VerMonumento extends Fragment {
 
                 bundl.putString("id_lugar", id_lugar);
                 bundl.putString("nombre_lugar", nombre_lugar);
+                bundl.putString("id_usuario",id_usuario);
+                bundl.putBoolean("agregado",agregado);
 
                 fragment_multimedia.setArguments(bundl);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 transaction.replace(R.id.contenedor, fragment_multimedia);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+            }
+        });
+
+        btn_valorar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // Create new fragment and transaction
+                Fragment_Valorar fragment_valorar = new Fragment_Valorar();
+
+                Bundle bundl = new Bundle();
+
+                bundl.putString("nombre_lugar", nombre_lugar);
+                bundl.putString("id_lugar", id_lugar);
+                bundl.putString("id_usuario", id_usuario);
+                bundl.putString("val_total",val_total);
+
+                // Obtener la valoración TOTAL
+
+                fragment_valorar.setArguments(bundl);
+
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.contenedor, fragment_valorar);
                 transaction.addToBackStack(null);
 
                 transaction.commit();
@@ -188,6 +221,9 @@ public class Fragment_VerMonumento extends Fragment {
         tv_visitas.setText(obj.getString("visitas"));
 
         Log.d("Valor de AGREGADO",String.valueOf(obj.getBoolean("agregado")));
+
+        agregado = obj.getBoolean("agregado");
+        val_total = obj.getString("val_total");
 
         if(obj.getBoolean("agregado")){
             //btn_add_monumento.setVisibility(View.GONE);

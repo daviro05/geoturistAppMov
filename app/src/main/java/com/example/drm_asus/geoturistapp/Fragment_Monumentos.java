@@ -55,7 +55,8 @@ public class Fragment_Monumentos extends Fragment {
         username = prefs.getString("username", null);
 
         nick_usuario.setText(username);
-        url_monumentos = entorno2+username;
+
+        url_monumentos = entorno1 + username;
 
         getJSON (url_monumentos);
 
