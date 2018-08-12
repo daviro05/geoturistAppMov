@@ -1,17 +1,27 @@
 package com.example.drm_asus.geoturistapp;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputFilter;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 public class Fragment_Valorar extends Fragment {
@@ -19,8 +29,10 @@ public class Fragment_Valorar extends Fragment {
     TextView tv_monumento, tv_valoracion_total;
     EditText et_valorar, et_comentario;
     Button btn_valorar, btn_volver_monumento, btn_add_monumento;
-    String id_lugar, nombre_lugar, id_usuario, val_total, num_val;
+    String id_lugar, nombre_lugar, id_usuario, val_total, num_val, url_valorar, comentario, valoracion;
     Boolean agregado;
+
+    private static String entorno1 ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,18 +110,100 @@ public class Fragment_Valorar extends Fragment {
             }
         });
 
+
+
         // Funcionalidad del boton de valorar
         btn_valorar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                comentario = et_comentario.getText().toString();
+                valoracion =  et_valorar.getText().toString();
+
+                url_valorar = entorno1 + "id_usuario=" + id_usuario + "&id_lugar=" + id_lugar + "&valoracion=" + valoracion
+                        + "&comentario=" + comentario;
                 // Al hacer click en el botón de Valorar comprobamos que los campos valorar y comentario (no es necesario) están completos.
                 // Necesitamos el id_usuario, id_lugar, valoracion y comentario
+                getJSON(url_valorar);
+                //Toast.makeText(getActivity().getApplicationContext(), url_valorar, Toast.LENGTH_SHORT).show();
 
+                Fragment_VerMonumento fragment_ver_monumento = new Fragment_VerMonumento();
+
+                Bundle bundl = new Bundle();
+
+                bundl.putString("nombre_lugar", nombre_lugar);
+                bundl.putString("id_lugar", id_lugar);
+                bundl.putString("id_usuario", id_usuario);
+
+                fragment_ver_monumento.setArguments(bundl);
+
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.contenedor, fragment_ver_monumento);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
 
             }
         });
 
         return v;
+    }
+
+    private void getJSON(final String urlWebService) {
+
+        class GetJSON extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            //this method will be called after execution
+            //so here we are displaying a toast with the json string
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                //Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+
+                try {
+                    //creating a URL
+                    URL url = new URL(urlWebService);
+
+                    //Opening the URL using HttpURLConnection
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    //StringBuilder object to read the string from the service
+                    StringBuilder sb = new StringBuilder();
+
+                    //We will use a buffered reader to read the string from service
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    //A simple string to read values from each line
+                    String json;
+
+                    //reading until we don't find null
+                    while ((json = bufferedReader.readLine()) != null) {
+
+                        //appending it to string builder
+                        sb.append(json + "\n");
+                    }
+
+                    //finally returning the read string
+                    return sb.toString().trim();
+                } catch (Exception e) {
+                    return null;
+                }
+
+            }
+        }
+
+        GetJSON getJSON = new GetJSON();
+        getJSON.execute();
     }
 }
