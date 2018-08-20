@@ -131,7 +131,7 @@
 
     </LinearLayout>
 
-    <Button
+    <!--<Button
         android:id="@+id/btn_editar"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -141,32 +141,8 @@
         android:backgroundTint="@color/colorPrimary"
         android:text="Editar Perfil"
         android:textColor="@android:color/white"
-        />
+        />-->
 
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="10dp"
-        >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Monumentos visitados:"
-        android:textSize="20dp"
-        android:layout_marginRight="10dp"
-        />
-    <TextView
-        android:id="@+id/tv_visitados"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20dp"
-        android:textStyle="bold"
-        />
-    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"

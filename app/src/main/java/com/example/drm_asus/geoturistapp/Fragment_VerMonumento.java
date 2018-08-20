@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,13 +32,15 @@ public class Fragment_VerMonumento extends Fragment {
     TextView tv_monumento, tv_information, tv_horario, tv_dias, tv_visitas, tv_valoracion_total;
     ListView lv_comentarios;
     Button btn_add_monumento, btn_multimedia, btn_valorar;
-    String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total, num_val, url_comentarios;
+    String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total, num_val, url_comentarios, url_add_lugar;
     Boolean agregado;
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
     private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/ver_monumento_usuario.php?";
 
     private static String entorno1_com ="http://192.168.1.44/geoturistapp/lista_com_usuario.php?";
+
+    private static String entorno1_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -142,6 +145,14 @@ public class Fragment_VerMonumento extends Fragment {
             }
         });
 
+        btn_add_monumento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                url_add_lugar = entorno1_add_lugar + "id_lugar=" + id_lugar + "&id_usuario=" + id_usuario + "&nombre_lugar=" + nombre_lugar;
+                getJSON(url_add_lugar,"add");
+            }
+        });
+
 
         return v;
     }
@@ -168,7 +179,11 @@ public class Fragment_VerMonumento extends Fragment {
                 super.onPostExecute(s);
                 //Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 try {
-                    loadLugar(s, tipo);
+                    if(tipo == "add"){
+                        addLugar();
+                    }
+                    else
+                        loadLugar(s, tipo);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -271,5 +286,16 @@ public class Fragment_VerMonumento extends Fragment {
 
 
         // MIRAR PORQUE SI HAY UN TEXTO MUY LARGO EN LA DESCRIPCIÓN, NO SE MUESTRA NADA
+    }
+
+
+    public void addLugar(){
+
+        btn_add_monumento.setText("Añadido");
+        btn_add_monumento.setBackgroundColor(Color.GRAY);
+        btn_add_monumento.setTextColor(Color.BLACK);
+        btn_add_monumento.setEnabled(false);
+
+        Toast.makeText(getActivity().getApplicationContext(), "Lugar añadido a tu lista", Toast.LENGTH_SHORT).show();
     }
 }
