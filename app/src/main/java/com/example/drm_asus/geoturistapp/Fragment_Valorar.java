@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -124,26 +125,32 @@ public class Fragment_Valorar extends Fragment {
                         + "&comentario=" + comentario;
                 // Al hacer click en el botón de Valorar comprobamos que los campos valorar y comentario (no es necesario) están completos.
                 // Necesitamos el id_usuario, id_lugar, valoracion y comentario
-                getJSON(url_valorar);
-                //Toast.makeText(getActivity().getApplicationContext(), url_valorar, Toast.LENGTH_SHORT).show();
 
-                Fragment_VerMonumento fragment_ver_monumento = new Fragment_VerMonumento();
+                if(!TextUtils.isEmpty(valoracion)) {
+                    getJSON(url_valorar);
+                    //Toast.makeText(getActivity().getApplicationContext(), url_valorar, Toast.LENGTH_SHORT).show();
 
-                Bundle bundl = new Bundle();
+                    Fragment_VerMonumento fragment_ver_monumento = new Fragment_VerMonumento();
 
-                bundl.putString("nombre_lugar", nombre_lugar);
-                bundl.putString("id_lugar", id_lugar);
-                bundl.putString("id_usuario", id_usuario);
+                    Bundle bundl = new Bundle();
 
-                fragment_ver_monumento.setArguments(bundl);
+                    bundl.putString("nombre_lugar", nombre_lugar);
+                    bundl.putString("id_lugar", id_lugar);
+                    bundl.putString("id_usuario", id_usuario);
+
+                    fragment_ver_monumento.setArguments(bundl);
 
 
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                transaction.replace(R.id.contenedor, fragment_ver_monumento);
-                transaction.addToBackStack(null);
+                    transaction.replace(R.id.contenedor, fragment_ver_monumento);
+                    transaction.addToBackStack(null);
 
-                transaction.commit();
+                    transaction.commit();
+                }
+                else{
+                    et_valorar.setError( "Valoración requerida" );
+                }
 
             }
         });
