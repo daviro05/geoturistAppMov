@@ -9,25 +9,27 @@
     tools:context="com.example.drm_asus.geoturistapp.MainActivity">
 
     <ImageView
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo2" />
 
     <EditText
         android:id="@+id/et_usuario"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="Usuario"
+        android:hint="Nick de usuario"
+        android:textAlignment="center"
         android:inputType="text"
         android:layout_gravity="center"
         />
 
     <EditText
         android:id="@+id/et_password"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:textAlignment="center"
         android:inputType="textPassword"
         android:layout_gravity="center"
         />
@@ -40,20 +42,13 @@
         android:layout_marginTop="20dp"
         android:text="Login" />
 
-    <!--<CheckBox
-        android:id="@+id/chk_recordar"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="Recordar"/>-->
 
     <TextView
         android:id="@+id/tv_ir_registro"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Registrarse"
         android:textSize="15dp" />
 
