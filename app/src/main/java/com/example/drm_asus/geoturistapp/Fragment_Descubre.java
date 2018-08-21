@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -32,15 +30,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * Created by David Rodríguez
+ */
 
 public class Fragment_Descubre extends Fragment {
 
@@ -51,6 +49,8 @@ public class Fragment_Descubre extends Fragment {
     public static final String USER_PASS = "user_pass_save";
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/coordenadas_usuario.php?";
+    private static String entorno2 =" http://socmica.000webhostapp.com/proyectos/geoturistapp/coordenadas_usuario.php?";
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

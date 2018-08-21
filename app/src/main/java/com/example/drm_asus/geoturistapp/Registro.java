@@ -19,6 +19,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Created by David Rodríguez
+ */
+
 public class Registro extends AppCompatActivity implements View.OnClickListener {
 
     TextView tv_volver_login;

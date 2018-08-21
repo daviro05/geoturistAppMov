@@ -26,6 +26,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Created by David Rodríguez
+ */
 
 public class Fragment_VerMonumento extends Fragment {
 
@@ -36,11 +39,13 @@ public class Fragment_VerMonumento extends Fragment {
     Boolean agregado;
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
-    private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/ver_monumento_usuario.php?";
+    private static String entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/ver_monumento_usuario.php?";
 
     private static String entorno1_com ="http://192.168.1.44/geoturistapp/lista_com_usuario.php?";
+    private static String entorno2_com ="http://socmica.000webhostapp.com/proyectos/geoturistapp/lista_com_usuario.php?";
 
     private static String entorno1_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
+    private static String entorno2_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

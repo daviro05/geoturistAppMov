@@ -19,6 +19,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Created by David Rodríguez
+ */
+
 // Clase que contiene el login para entrar en la aplicación
 
 public class MainActivity extends AppCompatActivity {

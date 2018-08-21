@@ -26,6 +26,9 @@ import java.net.URL;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * Created by David Rodríguez
+ */
 
 public class Fragment_Comentarios extends Fragment {
 
@@ -38,7 +41,7 @@ public class Fragment_Comentarios extends Fragment {
 
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/comentarios_usuario.php?";
-    private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/comentarios_usuario.php?";
+    private static String entorno2 =" http://socmica.000webhostapp.com/proyectos/geoturistapp/comentarios_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

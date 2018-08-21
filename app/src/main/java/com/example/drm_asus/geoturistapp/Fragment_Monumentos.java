@@ -27,6 +27,9 @@ import java.net.URL;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * Created by David Rodríguez
+ */
 
 public class Fragment_Monumentos extends Fragment {
 
@@ -37,9 +40,8 @@ public class Fragment_Monumentos extends Fragment {
 
     public static final String USER_PASS = "user_pass_save";
 
-
     private static String entorno1 ="http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario=";
-    private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/monumentos_usuario.php?id_usuario=";
+    private static String entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/monumentos_usuario.php?id_usuario=";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -24,6 +24,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Created by David Rodríguez
+ */
 
 public class Fragment_Valorar extends Fragment {
 
@@ -34,6 +37,9 @@ public class Fragment_Valorar extends Fragment {
     Boolean agregado;
 
     private static String entorno1 ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
+    private static String entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/valorar_usuario.php?";
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

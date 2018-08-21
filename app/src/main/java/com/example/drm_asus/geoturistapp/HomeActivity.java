@@ -1,25 +1,22 @@
 package com.example.drm_asus.geoturistapp;
 
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CheckBox;
 
+/**
+ * Created by David Rodríguez
+ */
 
 // Clase que contiene el menu principa de la aplicación
 
@@ -62,7 +59,7 @@ public class HomeActivity extends AppCompatActivity
         valoraciones = intent.getStringExtra("valoraciones");
 
 
-        Log.d("Usuario: ", nick);
+        Log.d("usuario: ", nick);
     }
 
     @Override
@@ -86,13 +83,6 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_inicio) {
             // Creamos un bundle para poder pasarle los datos del usuario logeado y poder pasarselos a todos los fragments
             Fragment_Inicio fragment_inicio = new Fragment_Inicio();
-
-            // SOLUCIONAR PROBLEMA DE NULL CUANDO NO SE MARCA EL BOTON DE RECORDAR
-
-            /*Bundle bundl = new Bundle();
-            bundl.putString("nick", nick);
-            fragment_inicio.setArguments(bundl);*/
-
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_inicio).commit();
         } else if (id == R.id.nav_monumentos) {
 
@@ -101,8 +91,6 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_descubre) {
 
-            // Intent intentCoords = new Intent(HomeActivity.this, Coordenadas.class);
-            // HomeActivity.this.startActivity(intentCoords);
             Fragment_Descubre fragment_descubre = new Fragment_Descubre();
             fragmentManager.beginTransaction().replace(R.id.contenedor, fragment_descubre).commit();
 

@@ -1,7 +1,7 @@
 package com.example.drm_asus.geoturistapp;
 
 /**
- * Created by DRM-ASUS on 12/08/2018.
+ * Created by David Rodríguez
  */
 
 import android.text.InputFilter;

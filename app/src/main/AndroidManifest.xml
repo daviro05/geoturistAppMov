@@ -22,8 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Registro" />
-        <activity android:name=".Usuario" />
-        <activity android:name=".Coordenadas" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"

@@ -26,8 +26,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Created by David Rodríguez
+ */
 
 public class Fragment_VerMultimedia extends Fragment {
+
+    private static String entorno1 ="http://192.168.1.44/geoturistapp/multimedia_usuario.php?";
+    private static String entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/multimedia_usuario.php?";
+
+    private static String url_entorno1 ="http://192.168.1.44/geoturistapp/";
+    private static String url_entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/";
 
     TextView tv_monumento;
     ListView lv_imagenes, lv_audios, lv_documentos;
@@ -35,11 +44,6 @@ public class Fragment_VerMultimedia extends Fragment {
     String id_lugar, nombre_lugar, id_usuario, tipo_multimedia, url_multimedia_imagenes, url_multimedia_audios, url_multimedia_documentos;
     Boolean agregado;
 
-    private static String entorno1 ="http://192.168.1.44/geoturistapp/multimedia_usuario.php?";
-    private static String entorno2 ="http://172.10.2.138/geoturistAppWeb/multimedia_usuario.php?";
-
-    private static String url_entorno1 ="http://192.168.1.44/geoturistapp/";
-    private static String url_entorno2 ="http://172.10.2.138/geoturistAppWeb/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,9 +58,10 @@ public class Fragment_VerMultimedia extends Fragment {
         id_usuario = bundl.getString("id_usuario");
         agregado = bundl.getBoolean("agregado");
 
-        url_multimedia_imagenes =   entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=imagenes";
-        url_multimedia_audios =     entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=audios";
-        url_multimedia_documentos = entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=documentos";
+
+        url_multimedia_imagenes =       entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=imagenes";
+        url_multimedia_audios =         entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=audios";
+        url_multimedia_documentos =     entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=documentos";
 
 
 
