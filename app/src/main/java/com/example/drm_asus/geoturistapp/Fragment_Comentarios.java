@@ -40,8 +40,8 @@ public class Fragment_Comentarios extends Fragment {
     public static final String USER_PASS = "user_pass_save";
 
 
-    private static String entorno ="http://192.168.1.44/geoturistapp/comentarios_usuario.php?";
-    //private static String entorno =" http://socmica.000webhostapp.com/proyectos/geoturistapp/comentarios_usuario.php?";
+    //private static String entorno ="http://192.168.1.44/geoturistapp/comentarios_usuario.php?";
+    private static String entorno =" http://socmica.000webhostapp.com/proyectos/geoturistapp/comentarios_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

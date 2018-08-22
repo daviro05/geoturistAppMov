@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,18 +33,22 @@ import java.net.URL;
 
 public class Fragment_VerMultimedia extends Fragment {
 
-    private static String entorno ="http://192.168.1.44/geoturistapp/multimedia_usuario.php?";
+    //private static String entorno ="http://192.168.1.44/geoturistapp/multimedia_usuario.php?";
 
-    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/multimedia_usuario.php?";
+    private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/multimedia_usuario.php?";
 
-    private static String url_entorno ="http://192.168.1.44/geoturistapp/";
+    //private static String url_entorno ="http://192.168.1.44/geoturistapp/";
 
-    //private static String url_entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/";
+    private static String url_entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/";
+
+    //private static String entorno_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
+
+    private static String entorno_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
 
     TextView tv_monumento;
     ListView lv_imagenes, lv_audios, lv_documentos;
     Button btn_add_monumento, btn_volver_monumento;
-    String id_lugar, nombre_lugar, id_usuario, tipo_multimedia, url_multimedia_imagenes, url_multimedia_audios, url_multimedia_documentos;
+    String id_lugar, nombre_lugar, id_usuario, tipo_multimedia, url_multimedia_imagenes, url_multimedia_audios, url_multimedia_documentos, url_add_lugar;
     Boolean agregado;
 
 
@@ -98,6 +103,7 @@ public class Fragment_VerMultimedia extends Fragment {
                 bundl.putString("nombre_lugar", nombre_lugar);
                 bundl.putString("id_lugar", id_lugar);
                 bundl.putString("id_usuario", id_usuario);
+                bundl.putBoolean("agregado",agregado);
 
                 fragment_ver_monumento.setArguments(bundl);
 
@@ -128,7 +134,14 @@ public class Fragment_VerMultimedia extends Fragment {
 
         tv_monumento.setText(nombre_lugar);
 
-        // Inflate the layout for this fragment
+        btn_add_monumento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                url_add_lugar = entorno_add_lugar + "id_lugar=" + id_lugar + "&id_usuario=" + id_usuario + "&nombre_lugar=" + nombre_lugar;
+                getJSON(url_add_lugar,"add");
+            }
+        });
+
         return v;
     }
 
@@ -154,7 +167,12 @@ public class Fragment_VerMultimedia extends Fragment {
                 super.onPostExecute(s);
                 //Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 try {
-                    loadMultimedia(s, tipo);
+                    if(tipo == "add"){
+                        addLugar();
+                    }
+                    else {
+                        loadMultimedia(s, tipo);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -319,5 +337,15 @@ public class Fragment_VerMultimedia extends Fragment {
             }
         }
 
+    }
+
+    public void addLugar(){
+
+        btn_add_monumento.setText("Añadido");
+        btn_add_monumento.setBackgroundColor(Color.GRAY);
+        btn_add_monumento.setTextColor(Color.BLACK);
+        btn_add_monumento.setEnabled(false);
+
+        Toast.makeText(getActivity().getApplicationContext(), "Lugar añadido a tu lista", Toast.LENGTH_SHORT).show();
     }
 }

@@ -38,17 +38,17 @@ public class Fragment_VerMonumento extends Fragment {
     String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total, num_val, url_comentarios, url_add_lugar;
     Boolean agregado;
 
-    private static String entorno ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
+    //private static String entorno ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
 
-    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/ver_monumento_usuario.php?";
+    private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/ver_monumento_usuario.php?";
 
-    private static String entorno_com ="http://192.168.1.44/geoturistapp/lista_com_usuario.php?";
+    //private static String entorno_com ="http://192.168.1.44/geoturistapp/lista_com_usuario.php?";
 
-    //private static String entorno_com ="http://socmica.000webhostapp.com/proyectos/geoturistapp/lista_com_usuario.php?";
+    private static String entorno_com ="http://socmica.000webhostapp.com/proyectos/geoturistapp/lista_com_usuario.php?";
 
-    private static String entorno_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
+    //private static String entorno_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
 
-    //private static String entorno_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
+    private static String entorno_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +64,7 @@ public class Fragment_VerMonumento extends Fragment {
         id_lugar = bundl.getString("id_lugar");
         nombre_lugar = bundl.getString("nombre_lugar");
         id_usuario = bundl.getString("id_usuario");
+        agregado = bundl.getBoolean("agregado");
 
         Log.d("Valor de ID_USUARIO",id_usuario);
 
@@ -160,6 +161,7 @@ public class Fragment_VerMonumento extends Fragment {
             @Override
             public void onClick(View v) {
                 url_add_lugar = entorno_add_lugar + "id_lugar=" + id_lugar + "&id_usuario=" + id_usuario + "&nombre_lugar=" + nombre_lugar;
+                Log.d("URL LUGAR",url_add_lugar);
                 getJSON(url_add_lugar,"add");
             }
         });
@@ -295,8 +297,6 @@ public class Fragment_VerMonumento extends Fragment {
 
         }
 
-
-        // MIRAR PORQUE SI HAY UN TEXTO MUY LARGO EN LA DESCRIPCIÓN, NO SE MUESTRA NADA
     }
 
 

@@ -40,9 +40,9 @@ public class Fragment_Monumentos extends Fragment {
 
     public static final String USER_PASS = "user_pass_save";
 
-    private static String entorno ="http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario=";
+    //private static String entorno ="http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario=";
 
-    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/monumentos_usuario.php?id_usuario=";
+    private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/monumentos_usuario.php?id_usuario=";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

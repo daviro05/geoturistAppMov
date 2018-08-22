@@ -48,9 +48,9 @@ public class Fragment_Descubre extends Fragment {
     Button btn_geolocalizar;
     public static final String USER_PASS = "user_pass_save";
 
-    private static String entorno ="http://192.168.1.44/geoturistapp/coordenadas_usuario.php?";
+    //private static String entorno ="http://192.168.1.44/geoturistapp/coordenadas_usuario.php?";
 
-    //private static String entorno =" http://socmica.000webhostapp.com/proyectos/geoturistapp/coordenadas_usuario.php?";
+    private static String entorno =" http://socmica.000webhostapp.com/proyectos/geoturistapp/coordenadas_usuario.php?";
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

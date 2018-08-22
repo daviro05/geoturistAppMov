@@ -33,12 +33,16 @@ public class Fragment_Valorar extends Fragment {
     TextView tv_monumento, tv_valoracion_total;
     EditText et_valorar, et_comentario;
     Button btn_valorar, btn_volver_monumento, btn_add_monumento;
-    String id_lugar, nombre_lugar, id_usuario, val_total, num_val, url_valorar, comentario, valoracion;
+    String id_lugar, nombre_lugar, id_usuario, val_total, num_val, url_valorar, comentario, valoracion, url_add_lugar;
     Boolean agregado;
 
-    private static String entorno ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
+    //private static String entorno ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
 
-    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/valorar_usuario.php?";
+    private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/valorar_usuario.php?";
+
+    //private static String entorno_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
+
+    private static String entorno_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
 
 
 
@@ -108,6 +112,7 @@ public class Fragment_Valorar extends Fragment {
                 bundl.putString("nombre_lugar", nombre_lugar);
                 bundl.putString("id_lugar", id_lugar);
                 bundl.putString("id_usuario", id_usuario);
+                bundl.putBoolean("agregado",agregado);
 
                 fragment_ver_monumento.setArguments(bundl);
 
@@ -138,7 +143,7 @@ public class Fragment_Valorar extends Fragment {
                 // Necesitamos el id_usuario, id_lugar, valoracion y comentario
 
                 if(!TextUtils.isEmpty(valoracion)) {
-                    getJSON(url_valorar);
+                    getJSON(url_valorar, "valorar");
                     //Toast.makeText(getActivity().getApplicationContext(), url_valorar, Toast.LENGTH_SHORT).show();
 
                     Fragment_VerMonumento fragment_ver_monumento = new Fragment_VerMonumento();
@@ -166,10 +171,18 @@ public class Fragment_Valorar extends Fragment {
             }
         });
 
+        btn_add_monumento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                url_add_lugar = entorno_add_lugar + "id_lugar=" + id_lugar + "&id_usuario=" + id_usuario + "&nombre_lugar=" + nombre_lugar;
+                getJSON(url_add_lugar,"add");
+            }
+        });
+
         return v;
     }
 
-    private void getJSON(final String urlWebService) {
+    private void getJSON(final String urlWebService, final String tipo) {
 
         class GetJSON extends AsyncTask<Void, Void, String> {
 
@@ -184,6 +197,9 @@ public class Fragment_Valorar extends Fragment {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 //Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                if(tipo == "add"){
+                    addLugar();
+                }
             }
 
             @Override
@@ -223,5 +239,15 @@ public class Fragment_Valorar extends Fragment {
 
         GetJSON getJSON = new GetJSON();
         getJSON.execute();
+    }
+
+    public void addLugar(){
+
+        btn_add_monumento.setText("Añadido");
+        btn_add_monumento.setBackgroundColor(Color.GRAY);
+        btn_add_monumento.setTextColor(Color.BLACK);
+        btn_add_monumento.setEnabled(false);
+
+        Toast.makeText(getActivity().getApplicationContext(), "Lugar añadido a tu lista", Toast.LENGTH_SHORT).show();
     }
 }
