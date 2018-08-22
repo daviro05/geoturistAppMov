@@ -48,8 +48,9 @@ public class Fragment_Descubre extends Fragment {
     Button btn_geolocalizar;
     public static final String USER_PASS = "user_pass_save";
 
-    private static String entorno1 ="http://192.168.1.44/geoturistapp/coordenadas_usuario.php?";
-    private static String entorno2 =" http://socmica.000webhostapp.com/proyectos/geoturistapp/coordenadas_usuario.php?";
+    private static String entorno ="http://192.168.1.44/geoturistapp/coordenadas_usuario.php?";
+
+    //private static String entorno =" http://socmica.000webhostapp.com/proyectos/geoturistapp/coordenadas_usuario.php?";
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -171,7 +172,7 @@ public class Fragment_Descubre extends Fragment {
     }
 
     public void obtener_monumentos_coordenadas(String longitud, String latitud){
-        url_monumentos = entorno1 + "longitud=" + longitud + "&latitud=" + latitud;
+        url_monumentos = entorno + "longitud=" + longitud + "&latitud=" + latitud;
         getJSON(url_monumentos);
     }
 

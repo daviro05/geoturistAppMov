@@ -32,11 +32,13 @@ import java.net.URL;
 
 public class Fragment_VerMultimedia extends Fragment {
 
-    private static String entorno1 ="http://192.168.1.44/geoturistapp/multimedia_usuario.php?";
-    private static String entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/multimedia_usuario.php?";
+    private static String entorno ="http://192.168.1.44/geoturistapp/multimedia_usuario.php?";
 
-    private static String url_entorno1 ="http://192.168.1.44/geoturistapp/";
-    private static String url_entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/";
+    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/multimedia_usuario.php?";
+
+    private static String url_entorno ="http://192.168.1.44/geoturistapp/";
+
+    //private static String url_entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/";
 
     TextView tv_monumento;
     ListView lv_imagenes, lv_audios, lv_documentos;
@@ -62,9 +64,9 @@ public class Fragment_VerMultimedia extends Fragment {
         agregado = bundl.getBoolean("agregado");
 
 
-        url_multimedia_imagenes =       entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=imagenes";
-        url_multimedia_audios =         entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=audios";
-        url_multimedia_documentos =     entorno1 + "id_lugar=" + id_lugar+"&tipo_multimedia=documentos";
+        url_multimedia_imagenes =       entorno + "id_lugar=" + id_lugar+"&tipo_multimedia=imagenes";
+        url_multimedia_audios =         entorno + "id_lugar=" + id_lugar+"&tipo_multimedia=audios";
+        url_multimedia_documentos =     entorno + "id_lugar=" + id_lugar+"&tipo_multimedia=documentos";
 
 
 
@@ -231,7 +233,7 @@ public class Fragment_VerMultimedia extends Fragment {
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                        String url_im = url_entorno1 + "multimedia/img_lugares/"+imagenes[position];
+                        String url_im = url_entorno + "multimedia/img_lugares/"+imagenes[position];
                         intent.setData(Uri.parse(url_im));
                         startActivity(intent);
 
@@ -269,7 +271,7 @@ public class Fragment_VerMultimedia extends Fragment {
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                        String url_im = url_entorno1 + "multimedia/audio_lugares/"+audios[position];
+                        String url_im = url_entorno + "multimedia/audio_lugares/"+audios[position];
                         intent.setData(Uri.parse(url_im));
                         startActivity(intent);
 
@@ -307,7 +309,7 @@ public class Fragment_VerMultimedia extends Fragment {
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                        String url_im = url_entorno1 + "multimedia/doc_lugares/"+documentos[position];
+                        String url_im = url_entorno + "multimedia/doc_lugares/"+documentos[position];
                         intent.setData(Uri.parse(url_im));
                         startActivity(intent);
 

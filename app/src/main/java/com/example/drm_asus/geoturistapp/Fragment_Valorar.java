@@ -36,8 +36,9 @@ public class Fragment_Valorar extends Fragment {
     String id_lugar, nombre_lugar, id_usuario, val_total, num_val, url_valorar, comentario, valoracion;
     Boolean agregado;
 
-    private static String entorno1 ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
-    private static String entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/valorar_usuario.php?";
+    private static String entorno ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
+
+    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/valorar_usuario.php?";
 
 
 
@@ -131,7 +132,7 @@ public class Fragment_Valorar extends Fragment {
                 comentario = et_comentario.getText().toString();
                 valoracion =  et_valorar.getText().toString();
 
-                url_valorar = entorno1 + "id_usuario=" + id_usuario + "&id_lugar=" + id_lugar + "&valoracion=" + valoracion
+                url_valorar = entorno + "id_usuario=" + id_usuario + "&id_lugar=" + id_lugar + "&valoracion=" + valoracion
                         + "&comentario=" + comentario;
                 // Al hacer click en el botón de Valorar comprobamos que los campos valorar y comentario (no es necesario) están completos.
                 // Necesitamos el id_usuario, id_lugar, valoracion y comentario

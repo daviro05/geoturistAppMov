@@ -18,7 +18,7 @@ public class Entorno extends Application{
         return entorno_des;
     }
 
-    public void setEntorno(String entorno) {
-        entorno_des = entorno;
+    public void setEntorno(String env) {
+        entorno_des = env;
     }
 }

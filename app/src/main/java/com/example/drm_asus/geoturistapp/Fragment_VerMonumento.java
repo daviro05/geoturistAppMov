@@ -38,14 +38,17 @@ public class Fragment_VerMonumento extends Fragment {
     String id_lugar, nombre_lugar, id_usuario, url_monumento, val_total, num_val, url_comentarios, url_add_lugar;
     Boolean agregado;
 
-    private static String entorno1 ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
-    private static String entorno2 ="http://socmica.000webhostapp.com/proyectos/geoturistapp/ver_monumento_usuario.php?";
+    private static String entorno ="http://192.168.1.44/geoturistapp/ver_monumento_usuario.php?";
 
-    private static String entorno1_com ="http://192.168.1.44/geoturistapp/lista_com_usuario.php?";
-    private static String entorno2_com ="http://socmica.000webhostapp.com/proyectos/geoturistapp/lista_com_usuario.php?";
+    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/ver_monumento_usuario.php?";
 
-    private static String entorno1_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
-    private static String entorno2_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
+    private static String entorno_com ="http://192.168.1.44/geoturistapp/lista_com_usuario.php?";
+
+    //private static String entorno_com ="http://socmica.000webhostapp.com/proyectos/geoturistapp/lista_com_usuario.php?";
+
+    private static String entorno_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
+
+    //private static String entorno_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,9 +67,9 @@ public class Fragment_VerMonumento extends Fragment {
 
         Log.d("Valor de ID_USUARIO",id_usuario);
 
-        url_monumento = entorno1 + "id_lugar="+id_lugar+"&id_usuario="+id_usuario;
+        url_monumento = entorno + "id_lugar="+id_lugar+"&id_usuario="+id_usuario;
 
-        url_comentarios  =   entorno1_com + "id_lugar=" + id_lugar+"&tipo_dato=comentarios";
+        url_comentarios  =   entorno_com + "id_lugar=" + id_lugar+"&tipo_dato=comentarios";
 
         // TextView de la vista
         tv_monumento = v.findViewById(R.id.tv_monumento);
@@ -156,7 +159,7 @@ public class Fragment_VerMonumento extends Fragment {
         btn_add_monumento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url_add_lugar = entorno1_add_lugar + "id_lugar=" + id_lugar + "&id_usuario=" + id_usuario + "&nombre_lugar=" + nombre_lugar;
+                url_add_lugar = entorno_add_lugar + "id_lugar=" + id_lugar + "&id_usuario=" + id_usuario + "&nombre_lugar=" + nombre_lugar;
                 getJSON(url_add_lugar,"add");
             }
         });
