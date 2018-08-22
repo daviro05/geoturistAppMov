@@ -47,6 +47,9 @@ public class Fragment_Comentarios extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        ((HomeActivity) getActivity())
+                .setActionBarTitle("Comentarios");
+
         View v = inflater.inflate(R.layout.fragment_fragment__mis_comentarios, container, false);
         lista_comentarios = v.findViewById(R.id.lv_comentarios);
         tv_comentarios = v.findViewById(R.id.tv_comentarios);

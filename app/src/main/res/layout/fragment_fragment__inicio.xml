@@ -11,10 +11,12 @@
     <TextView
         android:id="@+id/bienvenida"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="33dp"
+        android:background="@drawable/bgnubes"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
         android:textSize="25dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
@@ -25,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.30"
-        android:orientation="vertical"
-        android:background="@color/colorInicio0">
+        android:background="@drawable/bgmonumentos"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +41,8 @@
                 android:layout_weight="0.5"
                 android:gravity="center"
                 android:text="Monumentos Visitados"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
             <!--<TextView
                 android:id="@+id/tv_mon_visitados"
@@ -74,8 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.30"
-        android:orientation="vertical"
-        android:background="@color/colorInicio0">
+        android:background="@drawable/bgdescubre"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +90,8 @@
                 android:layout_marginVertical="20dp"
                 android:gravity="center"
                 android:text="¿Que hay por aquí?"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <Button
@@ -111,8 +115,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.30"
-        android:orientation="vertical"
-        android:background="@color/colorInicio0">>
+        android:background="@drawable/bgcomentarios"
+        android:orientation="vertical">>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,7 +128,8 @@
                 android:layout_marginVertical="20dp"
                 android:gravity="center"
                 android:text="Tus Comentarios"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

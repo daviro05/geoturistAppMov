@@ -28,6 +28,9 @@ public class Fragment_Inicio extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        ((HomeActivity) getActivity())
+                .setActionBarTitle("Inicio");
+
         View v = inflater.inflate(R.layout.fragment_fragment__inicio, container, false);
 
         btn_mis_monumentos = v.findViewById(R.id.btn_mis_monumentos);
@@ -38,7 +41,7 @@ public class Fragment_Inicio extends Fragment {
         SharedPreferences prefs = this.getActivity().getSharedPreferences(USER_PASS, MODE_PRIVATE);
         String username = prefs.getString("username", null);
 
-        bienvenida.setText("Hola "+username+"!");
+        bienvenida.setText("¡Hola "+username+"!");
 
         btn_mis_monumentos.setOnClickListener(new View.OnClickListener() {
             @Override

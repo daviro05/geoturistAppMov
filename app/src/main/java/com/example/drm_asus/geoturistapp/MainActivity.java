@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     if(success){
 
                         if(true) {
-                            // SI ESSTÁ MARCADO EL CHECKBOX EN LOGIN GUARDAMOS EL USERNAME Y PASSWORD en SharedPreferences
+                            // SI ESTÁ MARCADO EL CHECKBOX EN LOGIN GUARDAMOS EL USERNAME Y PASSWORD en SharedPreferences
                             SharedPreferences.Editor editor = getSharedPreferences(USER_PASS, MODE_PRIVATE).edit();
                             editor.putString("username", jsonResponse.getString("id_usuario"));
                             editor.putString("password", et_password.getText().toString());

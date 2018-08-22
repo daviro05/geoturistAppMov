@@ -47,6 +47,9 @@ public class Fragment_Monumentos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        ((HomeActivity) getActivity())
+                .setActionBarTitle("Monumentos");
+
         View v = inflater.inflate(R.layout.fragment_fragment__mis_monumentos, container, false);
         nick_usuario = v.findViewById(R.id.tv_nick);
         lista_monumentos = v.findViewById(R.id.lv_monumentos);

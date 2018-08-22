@@ -49,6 +49,9 @@ public class Fragment_VerMultimedia extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        ((HomeActivity) getActivity())
+                .setActionBarTitle("Multimedia");
+
         View v = inflater.inflate(R.layout.fragment_fragment__ver_multimedia, container, false);
 
         // Recibimos los datos del activity Fragment_Monumentos para poder mostrarlos en el Fragment de VerMonumentos.

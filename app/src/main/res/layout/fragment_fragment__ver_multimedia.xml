@@ -46,14 +46,13 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:backgroundTint="@color/white"
         android:layout_gravity="center">
 
         <ListView
             android:id="@+id/lv_imagenes"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
-        </ListView>
+            android:layout_height="60dp"
+            android:background="@color/white"></ListView>
 
     </LinearLayout>
 
@@ -72,14 +71,13 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:backgroundTint="@color/white"
         android:layout_gravity="center">
 
         <ListView
             android:id="@+id/lv_audios"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
-        </ListView>
+            android:layout_height="60dp"
+            android:background="@color/white"></ListView>
 
     </LinearLayout>
 
@@ -98,14 +96,13 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:backgroundTint="@color/white"
         android:layout_gravity="center">
 
         <ListView
             android:id="@+id/lv_documentos"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
-        </ListView>
+            android:layout_height="60dp"
+            android:background="@color/white"></ListView>
 
     </LinearLayout>
 

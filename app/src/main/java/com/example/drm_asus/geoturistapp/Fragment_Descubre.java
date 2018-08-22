@@ -54,7 +54,10 @@ public class Fragment_Descubre extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        ((HomeActivity) getActivity())
+                .setActionBarTitle("Descubre");
+
         View v = inflater.inflate(R.layout.fragment_fragment__descubre, container, false);
 
         tv_visitados = v.findViewById(R.id.tv_visitados);

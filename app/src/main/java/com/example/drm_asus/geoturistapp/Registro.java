@@ -5,12 +5,14 @@ import android.os.Debug;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -71,33 +73,53 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
         final String apellidos = et_apellidos.getText().toString();
         final String email = et_email.getText().toString();
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("correcto");
+        if(!TextUtils.isEmpty(id_usuario) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(apellidos)
+                && !TextUtils.isEmpty(email)) {
 
-                    if(success){
-                        Intent intent = new Intent(Registro.this,MainActivity.class);
-                        Registro.this.startActivity(intent);
-                        Log.d("Valor de success:", String.valueOf(success));
-                    }
-                    else{
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("correcto");
+
+                        if (success) {
+                            Intent intent = new Intent(Registro.this, MainActivity.class);
+                            Registro.this.startActivity(intent);
+                            Log.d("Valor de success:", String.valueOf(success));
+                            Toast.makeText(getApplicationContext(), "Registro correcto", Toast.LENGTH_SHORT).show();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Registro.this);
+                            builder.setMessage("Registro incorrecto")
+                                    .setNegativeButton("Volver a Intentar", null)
+                                    .create().show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                         AlertDialog.Builder builder = new AlertDialog.Builder(Registro.this);
-                        builder.setMessage("Registro incorrecto")
-                                .setNegativeButton("Volver a Intentar",null)
+                        builder.setMessage("Registro incorrecto. El usuario ya existe")
+                                .setNegativeButton("Volver a Intentar", null)
                                 .create().show();
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        };
+            };
 
-        RegistroRequest registroRequest = new RegistroRequest(id_usuario,nombre,apellidos,password,email,responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Registro.this);
-        queue.add(registroRequest);
+            RegistroRequest registroRequest = new RegistroRequest(id_usuario, nombre, apellidos, password, email, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(Registro.this);
+            queue.add(registroRequest);
+        }
+        else{
+            if(TextUtils.isEmpty(id_usuario))
+                et_nick.setError( "Nick requerido" );
+            if(TextUtils.isEmpty(password))
+                et_password.setError( "Passsword requerido" );
+            if(TextUtils.isEmpty(nombre))
+                et_nombre.setError( "Nombre requerido" );
+            if(TextUtils.isEmpty(apellidos))
+                 et_apellidos.setError( "Apellidos requerido" );
+            if(TextUtils.isEmpty(email))
+                et_email.setError( "Email requerido" );
+        }
     }
 }

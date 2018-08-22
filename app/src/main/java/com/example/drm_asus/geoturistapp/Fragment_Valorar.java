@@ -45,6 +45,10 @@ public class Fragment_Valorar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+        ((HomeActivity) getActivity())
+                .setActionBarTitle("Valorar");
+
         View v = inflater.inflate(R.layout.fragment_fragment__valorar, container, false);
 
         // Recibimos los datos del activity Fragment_Monumentos para poder mostrarlos en el Fragment de VerMonumentos.

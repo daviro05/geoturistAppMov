@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragment_Inicio()).commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -151,5 +152,9 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 }

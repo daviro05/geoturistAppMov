@@ -20,6 +20,9 @@ public class Fragment_Perfil extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        ((HomeActivity) getActivity())
+                .setActionBarTitle("Mi Perfil");
+
         View v = inflater.inflate(R.layout.fragment_fragment__perfil, container, false);
 
         tv_nick = v.findViewById(R.id.tv_nick);
