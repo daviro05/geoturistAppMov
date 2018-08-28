@@ -48,9 +48,9 @@ public class Fragment_Descubre extends Fragment {
     Button btn_geolocalizar;
     public static final String USER_PASS = "user_pass_save";
 
-    //private static String entorno ="http://192.168.1.44/geoturistapp/coordenadas_usuario.php?";
+    private static String entorno ="http://192.168.1.44/geoturistapp/coordenadas_usuario.php?";
 
-    private static String entorno =" http://socmica.000webhostapp.com/proyectos/geoturistapp/coordenadas_usuario.php?";
+    //private static String entorno =" http://socmica.000webhostapp.com/proyectos/geoturistapp/coordenadas_usuario.php?";
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +84,7 @@ public class Fragment_Descubre extends Fragment {
         return v;
     }
 
+    // Si el usuario hace click en el botón de geolocalizar comenzamos a obtener las coordenadas desde el dispositivo móvil.
     private void locationStart() {
         LocationManager mlocManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Localizacion Local = new Localizacion();
@@ -93,7 +94,8 @@ public class Fragment_Descubre extends Fragment {
             Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(settingsIntent);
         }
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
@@ -186,8 +188,6 @@ public class Fragment_Descubre extends Fragment {
                 super.onPreExecute();
             }
 
-            //this method will be called after execution
-            //so here we are displaying a toast with the json string
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
@@ -203,29 +203,21 @@ public class Fragment_Descubre extends Fragment {
             protected String doInBackground(Void... voids) {
 
                 try {
-                    //creating a URL
                     URL url = new URL(urlWebService);
 
-                    //Opening the URL using HttpURLConnection
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-                    //StringBuilder object to read the string from the service
                     StringBuilder sb = new StringBuilder();
 
-                    //We will use a buffered reader to read the string from service
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-                    //A simple string to read values from each line
                     String json;
 
-                    //reading until we don't find null
                     while ((json = bufferedReader.readLine()) != null) {
 
-                        //appending it to string builder
                         sb.append(json + "\n");
                     }
 
-                    //finally returning the read string
                     return sb.toString().trim();
                 } catch (Exception e) {
                     return null;
@@ -241,29 +233,23 @@ public class Fragment_Descubre extends Fragment {
 
 
     private void loadIntoListView(String json) throws JSONException {
-        //creating a json array from the json string
+
         JSONArray jsonArray = new JSONArray(json);
 
-        //creating a string array for listview
         final String[] lugares = new String[jsonArray.length()];
         final String[] id_lugares = new String[jsonArray.length()];
 
-        //looping through all the elements in json array
         for (int i = 0; i < jsonArray.length(); i++) {
 
-            //getting json object from the json array
             JSONObject obj = jsonArray.getJSONObject(i);
 
-            //getting the name from the json object and putting it inside string array
             lugares[i] = obj.getString("nombre_lugar");
             id_lugares[i] = obj.getString("id_lugar");
 
         }
 
-        //the array adapter to load data into list
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, lugares);
 
-        //attaching adapter to listview
         if(lugares != null) {
             lv_monumentos.setAdapter(arrayAdapter);
             tv_visitados.setText(String.valueOf(lugares.length));
@@ -273,7 +259,6 @@ public class Fragment_Descubre extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("click",String.valueOf(position));
 
-                    // Create new fragment and transaction
                     Fragment_VerMonumento fragment_monumento = new Fragment_VerMonumento();
 
                     Bundle bundl = new Bundle();

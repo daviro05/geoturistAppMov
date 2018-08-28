@@ -40,9 +40,9 @@ public class Fragment_Monumentos extends Fragment {
 
     public static final String USER_PASS = "user_pass_save";
 
-    //private static String entorno ="http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario=";
+    private static String entorno ="http://192.168.1.44/geoturistapp/monumentos_usuario.php?id_usuario=";
 
-    private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/monumentos_usuario.php?id_usuario=";
+    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/monumentos_usuario.php?id_usuario=";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,29 +91,27 @@ public class Fragment_Monumentos extends Fragment {
 
 
     private void loadIntoListView(String json) throws JSONException {
-        //creating a json array from the json string
         JSONArray jsonArray = new JSONArray(json);
 
-        //creating a string array for listview
+        //Creamos una array de strings para agregarlo al ListView
         final String[] lugares = new String[jsonArray.length()];
         final String[] id_lugares = new String[jsonArray.length()];
 
-        //looping through all the elements in json array
+        //Recorremos los datos obtenidos en el json
         for (int i = 0; i < jsonArray.length(); i++) {
 
-            //getting json object from the json array
+            //Obtenemos el objeto json del array de jsons
             JSONObject obj = jsonArray.getJSONObject(i);
 
-            //getting the name from the json object and putting it inside string array
+            //obtenemos los parametros que queremos del objeto json
             lugares[i] = obj.getString("nombre_lugar");
             id_lugares[i] = obj.getString("id_lugar");
 
         }
 
-        //the array adapter to load data into list
+        //Creamos un array adapter para almacenar los datos anteriores
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, lugares);
 
-        //attaching adapter to listview
         if(lugares != null) {
             lista_monumentos.setAdapter(arrayAdapter);
             tv_visitados.setText(String.valueOf(lugares.length));
@@ -123,7 +121,6 @@ public class Fragment_Monumentos extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("click",String.valueOf(position));
 
-                    // Create new fragment and transaction
                     Fragment_VerMonumento fragment_monumento = new Fragment_VerMonumento();
 
                     Bundle bundl = new Bundle();
@@ -146,22 +143,15 @@ public class Fragment_Monumentos extends Fragment {
         }
     }
 
-    //this method is actually fetching the json string
     private void getJSON(final String urlWebService) {
 
         class GetJSON extends AsyncTask<Void, Void, String> {
 
-            //this method will be called before execution
-            //you can display a progress bar or something
-            //so that user can understand that he should wait
-            //as network operation may take some time
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
             }
 
-            //this method will be called after execution
-            //so here we are displaying a toast with the json string
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
@@ -173,36 +163,29 @@ public class Fragment_Monumentos extends Fragment {
                 }
             }
 
-            //in this method we are fetching the json string
             @Override
             protected String doInBackground(Void... voids) {
 
-
-
                 try {
-                    //creating a URL
+                    //creamos la URL
                     URL url = new URL(urlWebService);
 
-                    //Opening the URL using HttpURLConnection
+                    //Se abre la URL usando HttpURLConnection
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-                    //StringBuilder object to read the string from the service
+                    //StringBuilder para leer la información
                     StringBuilder sb = new StringBuilder();
 
-                    //We will use a buffered reader to read the string from service
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-                    //A simple string to read values from each line
                     String json;
 
-                    //reading until we don't find null
                     while ((json = bufferedReader.readLine()) != null) {
 
-                        //appending it to string builder
                         sb.append(json + "\n");
                     }
 
-                    //finally returning the read string
+                    //Retornamos los datos leidos de la petición realizada. En este caso los datos del json
                     return sb.toString().trim();
                 } catch (Exception e) {
                     return null;
@@ -211,7 +194,6 @@ public class Fragment_Monumentos extends Fragment {
             }
         }
 
-        //creating asynctask object and executing it
         GetJSON getJSON = new GetJSON();
         getJSON.execute();
     }

@@ -70,7 +70,6 @@ public class Fragment_Inicio extends Fragment {
         });
 
 
-
         btn_mis_comentarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +82,6 @@ public class Fragment_Inicio extends Fragment {
 
             }
         });
-        // Inflate the layout for this fragment
         return v;
     }
 

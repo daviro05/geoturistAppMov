@@ -13,9 +13,9 @@ import java.util.Map;
 
 public class RegistroRequest extends StringRequest {
 
-    //private static String entorno = "http://192.168.1.44/geoturistapp/registro_usuario.php";
+    private static String entorno = "http://192.168.1.44/geoturistapp/registro_usuario.php";
 
-    private static String entorno = "http://socmica.000webhostapp.com/proyectos/geoturistapp/registro_usuario.php";
+    //private static String entorno = "http://socmica.000webhostapp.com/proyectos/geoturistapp/registro_usuario.php";
 
     private static final String REGISTER_REQUEST_URL = entorno;
 

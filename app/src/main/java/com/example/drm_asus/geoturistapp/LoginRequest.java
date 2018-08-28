@@ -15,9 +15,9 @@ import java.util.Map;
 public class LoginRequest extends StringRequest {
 
 
-    //private static String entorno = "http://192.168.1.44/geoturistapp/login_usuario.php";
+    private static String entorno = "http://192.168.1.44/geoturistapp/login_usuario.php";
 
-    private static String entorno = "http://socmica.000webhostapp.com/proyectos/geoturistapp/login_usuario.php";
+    //private static String entorno = "http://socmica.000webhostapp.com/proyectos/geoturistapp/login_usuario.php";
 
 
     private static final String LOGIN_REQUEST_URL = entorno;

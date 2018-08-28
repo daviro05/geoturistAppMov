@@ -36,13 +36,13 @@ public class Fragment_Valorar extends Fragment {
     String id_lugar, nombre_lugar, id_usuario, val_total, num_val, url_valorar, comentario, valoracion, url_add_lugar;
     Boolean agregado;
 
-    //private static String entorno ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
+    private static String entorno ="http://192.168.1.44/geoturistapp/valorar_usuario.php?";
 
-    private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/valorar_usuario.php?";
+    //private static String entorno ="http://socmica.000webhostapp.com/proyectos/geoturistapp/valorar_usuario.php?";
 
-    //private static String entorno_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
+    private static String entorno_add_lugar ="http://192.168.1.44/geoturistapp/add_lugar_usuario.php?";
 
-    private static String entorno_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
+    //private static String entorno_add_lugar ="http://socmica.000webhostapp.com/proyectos/geoturistapp/add_lugar_usuario.php?";
 
 
 
@@ -104,7 +104,6 @@ public class Fragment_Valorar extends Fragment {
             @Override
             public void onClick(View v)
             {
-                // Create new fragment and transaction
                 Fragment_VerMonumento fragment_ver_monumento = new Fragment_VerMonumento();
 
                 Bundle bundl = new Bundle();
@@ -191,8 +190,6 @@ public class Fragment_Valorar extends Fragment {
                 super.onPreExecute();
             }
 
-            //this method will be called after execution
-            //so here we are displaying a toast with the json string
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
@@ -206,29 +203,21 @@ public class Fragment_Valorar extends Fragment {
             protected String doInBackground(Void... voids) {
 
                 try {
-                    //creating a URL
                     URL url = new URL(urlWebService);
 
-                    //Opening the URL using HttpURLConnection
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-                    //StringBuilder object to read the string from the service
                     StringBuilder sb = new StringBuilder();
 
-                    //We will use a buffered reader to read the string from service
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-                    //A simple string to read values from each line
                     String json;
 
-                    //reading until we don't find null
                     while ((json = bufferedReader.readLine()) != null) {
 
-                        //appending it to string builder
                         sb.append(json + "\n");
                     }
 
-                    //finally returning the read string
                     return sb.toString().trim();
                 } catch (Exception e) {
                     return null;
